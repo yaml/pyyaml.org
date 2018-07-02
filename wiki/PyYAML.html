@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:text/css;charset=utf-8,%0A%0A%0Ahtml%20%7B%0Aline%2Dheight%3A%201%2E15%3B%20%0A%2Dms%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%20%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%20%0A%7D%0A%0A%0Abody%20%7B%0Amargin%3A%200%3B%0A%7D%0A%0Aarticle%2C%0Aaside%2C%0Afooter%2C%0Aheader%2C%0Anav%2C%0Asection%20%7B%0Adisplay%3A%20block%3B%0A%7D%0A%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0A%0A%0Afigcaption%2C%0Afigure%2C%0Amain%20%7B%20%0Adisplay%3A%20block%3B%0A%7D%0A%0Afigure%20%7B%0Amargin%3A%201em%2040px%3B%0A%7D%0A%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%20%0Aheight%3A%200%3B%20%0Aoverflow%3A%20visible%3B%20%0A%7D%0A%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%20%0Afont%2Dsize%3A%201em%3B%20%0A%7D%0A%0A%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%20%0A%2Dwebkit%2Dtext%2Ddecoration%2Dskip%3A%20objects%3B%20%0A%7D%0A%0Aabbr%5Btitle%5D%20%7B%0Aborder%2Dbottom%3A%20none%3B%20%0Atext%2Ddecoration%3A%20underline%3B%20%0Atext%2Ddecoration%3A%20underline%20dotted%3B%20%0A%7D%0A%0Ab%2C%0Astrong%20%7B%0Afont%2Dweight%3A%20inherit%3B%0A%7D%0A%0Ab%2C%0Astrong%20%7B%0Afont%2Dweight%3A%20bolder%3B%0A%7D%0A%0Acode%2C%0Akbd%2C%0Asamp%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%20%0Afont%2Dsize%3A%201em%3B%20%0A%7D%0A%0Adfn%20%7B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%0Amark%20%7B%0Abackground%2Dcolor%3A%20%23ff0%3B%0Acolor%3A%20%23000%3B%0A%7D%0A%0Asmall%20%7B%0Afont%2Dsize%3A%2080%25%3B%0A%7D%0A%0Asub%2C%0Asup%20%7B%0Afont%2Dsize%3A%2075%25%3B%0Aline%2Dheight%3A%200%3B%0Aposition%3A%20relative%3B%0Avertical%2Dalign%3A%20baseline%3B%0A%7D%0Asub%20%7B%0Abottom%3A%20%2D0%2E25em%3B%0A%7D%0Asup%20%7B%0Atop%3A%20%2D0%2E5em%3B%0A%7D%0A%0A%0Aaudio%2C%0Avideo%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0A%0Aaudio%3Anot%28%5Bcontrols%5D%29%20%7B%0Adisplay%3A%20none%3B%0Aheight%3A%200%3B%0A%7D%0A%0Aimg%20%7B%0Aborder%2Dstyle%3A%20none%3B%0A%7D%0A%0Asvg%3Anot%28%3Aroot%29%20%7B%0Aoverflow%3A%20hidden%3B%0A%7D%0A%0A%0Abutton%2C%0Ainput%2C%0Aoptgroup%2C%0Aselect%2C%0Atextarea%20%7B%0Afont%2Dfamily%3A%20sans%2Dserif%3B%20%0Afont%2Dsize%3A%20100%25%3B%20%0Aline%2Dheight%3A%201%2E15%3B%20%0Amargin%3A%200%3B%20%0A%7D%0A%0Abutton%2C%0Ainput%20%7B%20%0Aoverflow%3A%20visible%3B%0A%7D%0A%0Abutton%2C%0Aselect%20%7B%20%0Atext%2Dtransform%3A%20none%3B%0A%7D%0A%0Abutton%2C%0Ahtml%20%5Btype%3D%22button%22%5D%2C%20%0A%5Btype%3D%22reset%22%5D%2C%0A%5Btype%3D%22submit%22%5D%20%7B%0A%2Dwebkit%2Dappearance%3A%20button%3B%20%0A%7D%0A%0Abutton%3A%3A%2Dmoz%2Dfocus%2Dinner%2C%0A%5Btype%3D%22button%22%5D%3A%3A%2Dmoz%2Dfocus%2Dinner%2C%0A%5Btype%3D%22reset%22%5D%3A%3A%2Dmoz%2Dfocus%2Dinner%2C%0A%5Btype%3D%22submit%22%5D%3A%3A%2Dmoz%2Dfocus%2Dinner%20%7B%0Aborder%2Dstyle%3A%20none%3B%0Apadding%3A%200%3B%0A%7D%0A%0Abutton%3A%2Dmoz%2Dfocusring%2C%0A%5Btype%3D%22button%22%5D%3A%2Dmoz%2Dfocusring%2C%0A%5Btype%3D%22reset%22%5D%3A%2Dmoz%2Dfocusring%2C%0A%5Btype%3D%22submit%22%5D%3A%2Dmoz%2Dfocusring%20%7B%0Aoutline%3A%201px%20dotted%20ButtonText%3B%0A%7D%0A%0Afieldset%20%7B%0Apadding%3A%200%2E35em%200%2E75em%200%2E625em%3B%0A%7D%0A%0Alegend%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%20%0Acolor%3A%20inherit%3B%20%0Adisplay%3A%20table%3B%20%0Amax%2Dwidth%3A%20100%25%3B%20%0Apadding%3A%200%3B%20%0Awhite%2Dspace%3A%20normal%3B%20%0A%7D%0A%0Aprogress%20%7B%0Adisplay%3A%20inline%2Dblock%3B%20%0Avertical%2Dalign%3A%20baseline%3B%20%0A%7D%0A%0Atextarea%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0A%0A%5Btype%3D%22checkbox%22%5D%2C%0A%5Btype%3D%22radio%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%20%0Apadding%3A%200%3B%20%0A%7D%0A%0A%5Btype%3D%22number%22%5D%3A%3A%2Dwebkit%2Dinner%2Dspin%2Dbutton%2C%0A%5Btype%3D%22number%22%5D%3A%3A%2Dwebkit%2Douter%2Dspin%2Dbutton%20%7B%0Aheight%3A%20auto%3B%0A%7D%0A%0A%5Btype%3D%22search%22%5D%20%7B%0A%2Dwebkit%2Dappearance%3A%20textfield%3B%20%0Aoutline%2Doffset%3A%20%2D2px%3B%20%0A%7D%0A%0A%5Btype%3D%22search%22%5D%3A%3A%2Dwebkit%2Dsearch%2Dcancel%2Dbutton%2C%0A%5Btype%3D%22search%22%5D%3A%3A%2Dwebkit%2Dsearch%2Ddecoration%20%7B%0A%2Dwebkit%2Dappearance%3A%20none%3B%0A%7D%0A%0A%3A%3A%2Dwebkit%2Dfile%2Dupload%2Dbutton%20%7B%0A%2Dwebkit%2Dappearance%3A%20button%3B%20%0Afont%3A%20inherit%3B%20%0A%7D%0A%0A%0Adetails%2C%20%0Amenu%20%7B%0Adisplay%3A%20block%3B%0A%7D%0A%0Asummary%20%7B%0Adisplay%3A%20list%2Ditem%3B%0A%7D%0A%0A%0Acanvas%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0A%0Atemplate%20%7B%0Adisplay%3A%20none%3B%0A%7D%0A%0A%0A%5Bhidden%5D%20%7B%0Adisplay%3A%20none%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
+  <link href="data:text/css;charset=utf-8,body%20%7B%0Amargin%3A%20auto%3B%0Apadding%3A%201em%3B%0Amax%2Dwidth%3A%2044em%3B%20%7D%0A" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1 id="pyyaml">PyYAML</h1>
+<p><em>PyYAML is a YAML parser and emitter for Python.</em></p>
+<p><em>PyYAML is now maintained at <a href="https://github.com/yaml/pyyaml" class="uri">https://github.com/yaml/pyyaml</a>. This page is left for historical purposes.</em></p>
+<h2 id="overview">Overview</h2>
+<p><a href="http://yaml.org/">YAML</a> is a data serialization format designed for human readability and interaction with scripting languages.</p>
+<p><a href="http://pyyaml.org/wiki/PyYAML">PyYAML</a> is a YAML parser and emitter for the Python programming language.</p>
+<p>PyYAML features</p>
+<ul>
+<li>a <em>complete</em> <a href="http://yaml.org/spec/1.1/">YAML 1.1</a> parser. In particular, PyYAML can parse all examples from the specification. The parsing algorithm is simple enough to be a reference for YAML parser implementors.</li>
+<li>Unicode support including UTF-8/UTF-16 input/output and * escape sequences.</li>
+<li>low-level event-based parser and emitter API (like SAX).</li>
+<li>high-level API for serializing and deserializing native Python objects (like DOM or pickle).</li>
+<li>support for all types from the <a href="http://yaml.org/type/index.html">YAML types repository</a>. A simple extension API is provided.</li>
+<li>both pure-Python and fast <a href="./LibYAML">LibYAML</a>-based parsers and emitters.</li>
+<li>relatively sensible error messages.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<p>PyYAML requires Python 2.7 or Python 3.4+.</p>
+<h2 id="download-and-installation">Download and Installation</h2>
+<p>The current stable release of PyYAML: <em>3.12</em>.</p>
+<p>Download links:</p>
+<ul>
+<li><em>TAR.GZ package</em>: <a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.tar.gz" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.tar.gz</a></li>
+<li><em>ZIP package</em>: <a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.zip" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.zip</a></li>
+<li><em>Windows installers (32-bit)</em>:
+<ul>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py2.7.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py2.7.exe</a> (for Python 2.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py3.4.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py3.4.exe</a> (for Python 3.4)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py3.5.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win32-py3.5.exe</a> (for Python 3.5)</li>
+</ul></li>
+<li><em>Windows installers (64-bit)</em>:
+<ul>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py2.7.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py2.7.exe</a> (for Python 2.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py3.4.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py3.4.exe</a> (for Python 3.4)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py3.5.exe" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.12.win-amd64-py3.5.exe</a> (for Python 3.5)</li>
+</ul></li>
+</ul>
+<p>Unpack the archive and install the package by executing</p>
+<pre><code>$ python setup.py install</code></pre>
+<p>If you want to use <a href="./LibYAML">LibYAML</a> bindings, you need to download and install <a href="./LibYAML">LibYAML</a>. Then you may install the bindings by executing</p>
+<pre><code>$ python setup.py --with-libyaml install</code></pre>
+<p>The source distribution includes a comprehensive test suite. To run the tests, type</p>
+<pre><code>$ python setup.py test</code></pre>
+<h2 id="documentation">Documentation</h2>
+<p><em>Quick example (see documentation for loading multiple documents):</em></p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> yaml
+
+<span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.load(<span class="st">&quot;&quot;&quot;</span>
+<span class="st">... name: Vorlin Laruknuzum</span>
+<span class="st">... sex: Male</span>
+<span class="st">... class: Priest</span>
+<span class="st">... title: Acolyte</span>
+<span class="st">... hp: [32, 71]</span>
+<span class="st">... sp: [1, 13]</span>
+<span class="st">... gold: 423</span>
+<span class="st">... inventory:</span>
+<span class="st">... - a Holy Book of Prayers (Words of Wisdom)</span>
+<span class="st">... - an Azure Potion of Cure Light Wounds</span>
+<span class="st">... - a Silver Wand of Wonder</span>
+<span class="st">... &quot;&quot;&quot;</span>)
+
+{<span class="st">'name'</span>: <span class="st">'Vorlin Laruknuzum'</span>, <span class="st">'gold'</span>: <span class="dv">423</span>, <span class="st">'title'</span>: <span class="st">'Acolyte'</span>, <span class="st">'hp'</span>: [<span class="dv">32</span>, <span class="dv">71</span>],
+<span class="co">'sp'</span>: [<span class="dv">1</span>, <span class="dv">13</span>], <span class="st">'sex'</span>: <span class="st">'Male'</span>, <span class="st">'inventory'</span>: [<span class="st">'a Holy Book of Prayers (Words of Wisdom)'</span>,
+<span class="co">'an Azure Potion of Cure Light Wounds'</span>, <span class="st">'a Siver Wand of Wonder'</span>], <span class="st">'class'</span>: <span class="st">'Priest'</span>}
+
+<span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'name'</span>: <span class="st">&quot;The Cloak 'Colluin'&quot;</span>, <span class="st">'depth'</span>: <span class="dv">5</span>, <span class="st">'rarity'</span>: <span class="dv">45</span>,
+... <span class="st">'weight'</span>: <span class="dv">10</span>, <span class="st">'cost'</span>: <span class="dv">50000</span>, <span class="st">'flags'</span>: [<span class="st">'INT'</span>, <span class="st">'WIS'</span>, <span class="st">'SPEED'</span>, <span class="st">'STEALTH'</span>]})
+
+name: The Cloak <span class="st">'Colluin'</span>
+rarity: <span class="dv">45</span>
+flags: [INT, WIS, SPEED, STEALTH]
+weight: <span class="dv">10</span>
+cost: <span class="dv">50000</span>
+depth: <span class="dv">5</span></code></pre></div>
+<p>For more details, please check <a href="./PyYAMLDocumentation">PyYAML Documentation</a>.</p>
+<h2 id="history">History</h2>
+<p><em>3.12 (2016-08-28)</em></p>
+<ul>
+<li>Wheel packages for Windows binaries.</li>
+<li>Adding an implicit resolver to a derived loader should not affect the base loader (fixes issue #57).</li>
+<li>Uniform representation for OrderedDict across different versions of Python (fixes issue #61).</li>
+<li>Fixed comparison to None warning (closes issue #64).</li>
+</ul>
+<p><em>3.11 (2014-03-26)</em></p>
+<ul>
+<li>Source and binary distributions are rebuilt against the latest versions of Cython and LibYAML.</li>
+</ul>
+<p><em>3.10 (2011-05-30)</em></p>
+<ul>
+<li>Do not try to build LibYAML bindings on platforms other than CPython; this fixed installation under Jython (Thank to olt(at)bogosoft(dot)com).</li>
+<li>Clear cyclic references in the parser and the emitter (Thank to kristjan(at)ccpgames(dot)com).</li>
+<li>LibYAML bindings are rebuilt with the latest version of Cython.</li>
+<li>Dropped support for Python 2.3 and 2.4; currently supported versions are 2.5 to 3.2.</li>
+</ul>
+<p><em>3.09 (2009-08-31)</em></p>
+<ul>
+<li>Fixed use of uninitialized memory when emitting anchors with LibYAML bindings (Thank to cegner(at)yahoo-inc(dot)com).</li>
+<li>Fixed emitting incorrect BOM characters for UTF-16 (Thank to Valentin Nechayev)</li>
+<li>Fixed the emitter for folded scalars not respecting the preferred line width (Thank to Ingy).</li>
+<li>Fixed a subtle ordering issue with emitting <code>%TAG</code> directives (Thank to Andrey Somov).</li>
+<li>Fixed performance regression with LibYAML bindings.</li>
+</ul>
+<p><em>3.08 (2008-12-31)</em></p>
+<ul>
+<li>Python 3 support (Thank to Erick Tryzelaar).</li>
+<li>Use Cython instead of Pyrex to build LibYAML bindings.</li>
+<li>Refactored support for unicode and byte input/output streams.</li>
+</ul>
+<p><em>3.07 (2008-12-29)</em></p>
+<ul>
+<li>The emitter learned to use an optional indentation indicator for block scalar; thus scalars with leading whitespaces could now be represented in a literal or folded style.</li>
+<li>The test suite is now included in the source distribution. To run the tests, type <code>python setup.py test</code>.</li>
+<li>Refactored the test suite: dropped <code>unittest</code> in favor of a custom test appliance.</li>
+<li>Fixed the path resolver in <code>CDumper</code>.</li>
+<li>Forced an explicit document end indicator when there is a possibility of parsing ambiguity.</li>
+<li>More <code>setup.py</code> improvements: the package should be usable when any combination of <code>setuptools</code>, <code>Pyrex</code> and <code>LibYAML</code> is installed.</li>
+<li>Windows binary packages are built against LibYAML-0.1.2.</li>
+<li>Minor typos and corrections. Thank to Ingy dot Net and Andrey Somov.</li>
+</ul>
+<p><em>3.06 (2008-10-03)</em></p>
+<ul>
+<li>setup.py checks whether <a href="./LibYAML">LibYAML</a> is installed and if so, builds and installs <a href="./LibYAML">LibYAML</a> bindings. To force or disable installation of <a href="./LibYAML">LibYAML</a> bindings, use <code>--with-libyaml</code> or <code>--without-libyaml</code> respectively (partially fixes #34).</li>
+<li>Building <a href="./LibYAML">LibYAML</a> bindings no longer requires Pyrex installed (fixed #33).</li>
+<li><code>yaml.load()</code> raises an exception if the input stream contains more than one YAML document (fixed #54).</li>
+<li>Fixed exceptions produced by <a href="./LibYAML">LibYAML</a> bindings (fixed #50).</li>
+<li>Fixed a dot <code>'.'</code> character being recognized as <code>!!float</code> (fixed #62).</li>
+<li>Fixed Python 2.3 compatibility issue in constructing <code>!!timestamp</code> values.</li>
+<li>Windows binary packages are built against the <a href="./LibYAML">LibYAML</a> stable branch.</li>
+<li>Added attributes <code>yaml.__version__</code> and <code>yaml.__with_libyaml__</code> (fixed #85).</li>
+</ul>
+<p><em>3.05 (2007-05-13)</em></p>
+<ul>
+<li>Allow for immutable subclasses of YAMLObject. Fixed #53.</li>
+<li>Make the encoding of the unicode-&gt;str conversion explicit; fixed #52.</li>
+<li>Fixed a problem when the <code>DOCUMENT-END</code> event is not emitted until the beginning of the next document is available. Fixed #51. Thanks edward(at)sweetbytes.net for the bug report.</li>
+<li>Improve output of float values. Fixed #49.</li>
+<li>Fix the bug when the path in <code>add_path_resolver</code> contains boolean values. Fixed #43 (thanks to jstroud(at)mbi.ucla.edu for reporting and pointing to the cause).</li>
+<li>Use the types module instead of constructing type objects by hand. Fixed #41. Thanks to v.haisman(at)sh.cvut.cz for the patch.</li>
+<li>Fix loss of microsecond precision in datetime.datetime constructor (fix #30). Thanks to edemaine(at)mit.edu for the bug report and the patch.</li>
+<li>Fixed loading an empty YAML stream.</li>
+</ul>
+<p><em>3.04 (2006-08-20)</em></p>
+<ul>
+<li>Include experimental <a href="./LibYAML">LibYAML</a> bindings.</li>
+<li>Fully support recursive structures (close #5).</li>
+<li>Sort dictionary keys (close #23). Mapping node values are now represented as lists of pairs instead of dictionaries. Do not check for duplicate mapping keys as it didn’t work correctly anyway.</li>
+<li>Fix invalid output of single-quoted scalars in cases when a single quote is not escaped when preceeded by whitespaces or line breaks (close #17).</li>
+<li>To make porting easier, rewrite Parser not using generators.</li>
+<li>Fix handling of unexpected block mapping values, like {{{ : foo }}}</li>
+<li>Fix a bug in <code>Representer.represent_object</code>: <code>copy_reg.dispatch_table</code> was not correctly handled.</li>
+<li>Fix a bug when a block scalar is incorrectly emitted in the simple key context.</li>
+<li>Hold references to the objects being represented (close #22).</li>
+<li>Make Representer not try to guess <code>!!pairs</code> when a list is represented.</li>
+<li>Fix timestamp constructing and representing (close #25).</li>
+<li>Fix the ‘N’ plain scalar being incorrectly recognized as <code>!!bool</code> (close #26).</li>
+</ul>
+<p><em>3.03 (2006-06-19)</em></p>
+<ul>
+<li>Fix Python 2.5 compatibility issues.</li>
+<li>Fix numerous bugs in the float handling.</li>
+<li>Fix scanning some ill-formed documents.</li>
+<li>Other minor fixes.</li>
+</ul>
+<p><em>3.02 (2006-05-15)</em></p>
+<ul>
+<li>Fix win32 installer. Apparently bdist_wininst does not work well under Linux.</li>
+<li>Fix a bug in add_path_resolver.</li>
+<li>Add the yaml-highlight example. Try to run on a color terminal: <code>python yaml_hl.py &lt;any_document.yaml</code>.</li>
+</ul>
+<p><em>3.01 (2006-05-07)</em></p>
+<ul>
+<li>Initial release. The version number reflects the codename of the project (PyYAML 3000) and differenciates it from the abandoned PyYaml module.</li>
+</ul>
+<h2 id="author-and-copyright">Author and copyright</h2>
+<p>The PyYAML module is written by <script type="text/javascript">
+<!--
+h='&#114;&#x65;&#x73;&#x6f;&#108;&#118;&#x65;&#110;&#116;&#46;&#110;&#x65;&#116;';a='&#64;';n='&#120;&#x69;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#x4b;&#x69;&#114;&#x69;&#108;&#108;&#32;&#x53;&#x69;&#x6d;&#x6f;&#110;&#x6f;&#118;'+'<\/'+'a'+'>');
+// -->
+</script><noscript>Kirill Simonov (xi at resolvent dot net)</noscript>.</p>
+<p>PyYAML is released under the MIT license.</p>
+</body>
+</html>
