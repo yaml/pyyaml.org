@@ -1,12 +1,18 @@
-.PHONY: all
+ALL_MARKDOWN = $(shell find . -name '*.md')
+ALL_HTML = $(ALL_MARKDOWN:.md=.html)
 
-MD = $(shell find . -name '*.md')
-HTML = $(MD:.md=.html)
+default:
 
-all: $(HTML)
+update: $(ALL_HTML)
 
 %.html: %.md
-	pandoc --standalone --self-contained --smart --css normalize.css --css pandoc.css $< -o $@
+	pandoc \
+	    --standalone \
+	    --self-contained \
+	    --from=markdown+smart \
+	    --css=normalize.css \
+	    --css=pandoc.css \
+	    $< -o $@
 
 clean:
-	rm -f $(HTML)
+	rm -f $(ALL_HTML)

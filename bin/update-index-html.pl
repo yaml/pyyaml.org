@@ -22,7 +22,7 @@ sub update {
     closedir $dh;
 
     my $listing = join "\n", map {
-        my $size = -s "$dir/$_";
+        my $size = -f "$dir/$_" ? -s "$dir/$_" : '&nbsp;';
         qq{<tr><td><tt><a href="$_">$_</a></tt></td><td><tt>$size</tt></td></tr>}
     } sort @files;
 
