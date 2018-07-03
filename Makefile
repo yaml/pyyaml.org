@@ -14,3 +14,6 @@ update-wiki:
 
 update-indexes:
 	./bin/update-index-html.pl $(ALL_INDEXES)
+
+clean:
+	make -C wiki $@

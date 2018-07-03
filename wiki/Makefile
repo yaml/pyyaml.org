@@ -12,6 +12,7 @@ update: $(ALL_HTML)
 	    --from=markdown+smart \
 	    --css=normalize.css \
 	    --css=pandoc.css \
+	    --metadata title=" " \
 	    $< -o $@
 
 clean:
