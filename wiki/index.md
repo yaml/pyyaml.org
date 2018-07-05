@@ -1,9 +1,20 @@
-# PyYAML.org
+# Welcome to PyYAML
 
-*PyYAML and LibYAML are now maintained at <https://github.com/yaml>.  This page
-is left for historical purposes.*
+[PyYAML](http://pyyaml.org/wiki/PyYAML) is a full-featured
+[YAML](http://yaml.org/) framework for the Python programming language.
 
-## News
+## PyYAML Resources
+
+* [PyYAML Documentation](/wiki/PyYAMLDocumentation)
+* [LibYAML](/wiki/LibYAML) is a YAML parser and emitter written in C
+* [PyYAML Repository](https://github.com/yaml/pyyaml/)
+* [PyYAML Issues](https://github.com/yaml/pyyaml/issues/)
+* PyYAML Development Chat - `#pyyaml` irc.freenode.net
+
+
+## PyYAML News
+
+_2018-06-24_: *[LibYAML](/wiki/LibYAML) 0.2.1* is released.
 
 _2016-08-28_: *[LibYAML](/wiki/LibYAML) 0.1.7* and *[PyYAML](/wiki/PyYAML) 3.12* are released.
 
@@ -57,13 +68,3 @@ _2006-05-07_: *[PyYAML](/wiki/PyYAML) 3.01* is released.
 _2006-03-26_: *PySyck 0.61.2* is released.
 
 _2006-03-18_: *PySyck 0.61.1* is released.
-
-## PyYAML
-
-[PyYAML](/wiki/PyYAML) is the next generation YAML parser and emitter for
-Python.  Also visit [PyYAML Documentation](/wiki/PyYAMLDocumentation).
-
-## LibYAML
-
-[LibYAML](/wiki/LibYAML) is a YAML parser and emitter written in C.
-

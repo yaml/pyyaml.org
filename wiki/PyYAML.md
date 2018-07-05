@@ -1,9 +1,6 @@
 # PyYAML
 
-*PyYAML is a YAML parser and emitter for Python.*
-
-*PyYAML is now maintained at <https://github.com/yaml/pyyaml>.  This page is
-left for historical purposes.*
+PyYAML is a YAML parser and emitter for Python.
 
 ## Overview
 
@@ -236,8 +233,12 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
    project (PyYAML 3000) and differenciates it from the abandoned
    PyYaml module.
 
-## Author and copyright
+## Author and Copyright
 
-The PyYAML module is written by [Kirill Simonov](mailto:xi@resolvent.net).
+Copyright (c) 2017-2018 Ingy döt Net
+Copyright (c) 2006-2016 Kirill Simonov
+
+The PyYAML module was written by [Kirill Simonov](mailto:xi@resolvent.net).
+It is now maintained by the YAML community.
 
 PyYAML is released under the MIT license.

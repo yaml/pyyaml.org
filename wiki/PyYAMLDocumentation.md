@@ -1,12 +1,15 @@
 # PyYAML Documentation
 
-*PyYAML is now maintained at <https://github.com/yaml/pyyaml>. This page is left
-for historical purposes.*
+PyYAML is a YAML parser and emitter for Python.
 
 ## Installation
 
-Download the source package *PyYAML-3.12.tar.gz* and unpack it. Go to the
-directory *PyYAML-3.12* and run
+Simple install:
+
+    pip install pyyaml
+
+To install from source, download the source package *PyYAML-3.12.tar.gz* and
+unpack it. Go to the directory *PyYAML-3.12* and run:
 
     $ python setup.py install
 

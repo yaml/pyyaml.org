@@ -328,25 +328,25 @@ max-width: 44em; }
 </head>
 <body>
 <h1 id="libyaml">LibYAML</h1>
-<p><em>LibYAML is now maintained at <a href="https://github.com/yaml/libyaml" class="uri">https://github.com/yaml/libyaml</a>. This page is left for historical purposes.</em></p>
+<p>LibYAML is a YAML parser and emitter library.</p>
 <h2 id="download-and-installation">Download and Installation</h2>
-<p>The current release of LibYAML: <em>0.1.7 (2016-08-28)</em>.</p>
-<p>Download the source package: <a href="http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz" class="uri">http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz</a>.</p>
+<p>The current release of LibYAML: <em>0.2.1 (2018-06-24)</em>.</p>
+<p>Download the source package: <a href="http://pyyaml.org/download/libyaml/yaml-0.2.1.tar.gz" class="uri">http://pyyaml.org/download/libyaml/yaml-0.2.1.tar.gz</a>.</p>
 <p>To build and install LibYAML, run</p>
 <pre><code>$ ./configure
 $ make
 # make install</code></pre>
-<p>You may check out the latest development code of LibYAML from the Mercurial repository <a href="https://bitbucket.org/xi/libyaml" class="uri">https://bitbucket.org/xi/libyaml</a>:</p>
-<pre><code>$ hg clone https://bitbucket.org/xi/libyaml</code></pre>
-<p>If you checked out the LibYAML source code from the Mercurial repository, you can build LibYAML with the commands:</p>
+<p>You may check out the latest development code of LibYAML from the GitHub repository <a href="https://github.com/yaml/libyaml" class="uri">https://github.com/yaml/libyaml</a>:</p>
+<pre><code>$ git clone https://github.com/yaml/libyaml</code></pre>
+<p>If you checked out the LibYAML source code from the GitHub repository, you can build LibYAML with the commands:</p>
 <pre><code>$ ./bootstrap
 $ ./configure
 $ make
 # make install</code></pre>
-<h2 id="development-and-bug-reports">Development and bug reports</h2>
-<p>You may check out the LibYAML source code from <a href="https://bitbucket.org/xi/libyaml">LibYAML HG repository</a>.</p>
-<p>If you find a bug in LibYAML, please <a href="https://bitbucket.org/xi/libyaml/issues/new">file a bug report</a>. You may review open bugs through <a href="https://bitbucket.org/xi/libyaml/issues?status=new&amp;status=open">the list of open tickets</a>.</p>
-<p>You may discuss LibYAML at <a href="http://lists.sourceforge.net/lists/listinfo/yaml-core">the YAML-core mailing list</a>.</p>
+<h2 id="development-and-bug-reports">Development and Bug Reports</h2>
+<p>You may check out the LibYAML source code from <a href="https://github.com/yaml/libyaml/">LibYAML Git repository</a>.</p>
+<p>If you find a bug in LibYAML, please <a href="https://github.com/yaml/libyaml/issues/">file a bug report</a>.</p>
+<p>You can discuss LibYAML with the developers on IRC: <code>#libyaml</code> irc.freenode.net</p>
 <h2 id="documentation">Documentation</h2>
 <h3 id="scope">Scope</h3>
 <p>LibYAML covers <em>presenting</em> and <em>parsing</em> <a href="http://yaml.org/spec/1.1/#id859458">processes</a>. Thus LibYAML defines the following two processors:</p>
@@ -442,7 +442,7 @@ mapping ::= MAPPING-START (node node)* MAPPING-END</code></pre>
 </ul></li>
 </ul>
 <h3 id="api">API</h3>
-<p>Note: the API may change drastically. You may also check the header file: <a href="https://bitbucket.org/xi/libyaml/src/tip/include/yaml.h" class="uri">https://bitbucket.org/xi/libyaml/src/tip/include/yaml.h</a></p>
+<p>Note: the API may change drastically. You may also check the header file: <a href="https://github.com/yaml/libyaml/blob/master/include/yaml.h" class="uri">https://github.com/yaml/libyaml/blob/master/include/yaml.h</a></p>
 <h4 id="parser-api-synopsis">Parser API Synopsis</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;yaml.h&gt;</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
@@ -566,10 +566,11 @@ mapping ::= MAPPING-START (node node)* MAPPING-END</code></pre>
 <a class="sourceLine" id="cb6-53" data-line-number="53"></a>
 <a class="sourceLine" id="cb6-54" data-line-number="54"><span class="cf">return</span> <span class="dv">0</span>;</a></code></pre></div>
 <h3 id="examples">Examples</h3>
-<p>You may check <a href="https://bitbucket.org/xi/libyaml/src/tip/tests/">tests and examples</a> in the source distribution.</p>
+<p>You may check out <a href="https://github.com/yaml/libyaml/tree/master/tests">tests</a> and <a href="https://github.com/yaml/libyaml/tree/master/examples">examples</a> and in the source distribution.</p>
 <h2 id="copyright">Copyright</h2>
-<p>The LibYAML library is written by <a href="mailto:xi@resolvent.net">Kirill Simonov</a>.</p>
+<p>Copyright (c) 2017-2018 Ingy döt Net Copyright (c) 2006-2016 Kirill Simonov</p>
+<p>The LibYAML library was written by <a href="mailto:xi@resolvent.net">Kirill Simonov</a>. It is now maintained by the YAML community.</p>
 <p>LibYAML is released under the MIT license.</p>
-<p>This project is developed for <a href="http://www.python.org/psf/">Python Software Foundation</a> as a part of <a href="http://code.google.com/soc/2006/psf/appinfo.html?csaid=75A3CBE3EC4B3DB2">Google Summer of Code</a> under the mentorship of <a href="http://clarkevans.com/">Clark Evans</a>.</p>
+<p>This project was developed for <a href="http://www.python.org/psf/">Python Software Foundation</a> as a part of <a href="http://code.google.com/soc/2006/psf/appinfo.html?csaid=75A3CBE3EC4B3DB2">Google Summer of Code</a> under the mentorship of <a href="http://clarkevans.com/">Clark Evans</a>.</p>
 </body>
 </html>

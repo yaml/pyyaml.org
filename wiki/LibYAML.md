@@ -1,13 +1,12 @@
 # LibYAML
 
-*LibYAML is now maintained at <https://github.com/yaml/libyaml>.  This page is
-left for historical purposes.*
+LibYAML is a YAML parser and emitter library.
 
 ## Download and Installation
 
-The current release of LibYAML: *0.1.7 (2016-08-28)*.
+The current release of LibYAML: *0.2.1 (2018-06-24)*.
 
-Download the source package: <http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz>.
+Download the source package: <http://pyyaml.org/download/libyaml/yaml-0.2.1.tar.gz>.
 
 To build and install LibYAML, run
 
@@ -15,31 +14,28 @@ To build and install LibYAML, run
     $ make
     # make install
 
-You may check out the latest development code of LibYAML from the Mercurial repository
-<https://bitbucket.org/xi/libyaml>:
+You may check out the latest development code of LibYAML from the GitHub
+repository <https://github.com/yaml/libyaml>:
 
-    $ hg clone https://bitbucket.org/xi/libyaml
+    $ git clone https://github.com/yaml/libyaml
 
-If you checked out the LibYAML source code from the Mercurial repository, you
-can build LibYAML with the commands:
+If you checked out the LibYAML source code from the GitHub repository, you can
+build LibYAML with the commands:
 
     $ ./bootstrap
     $ ./configure
     $ make
     # make install
 
-## Development and bug reports
+## Development and Bug Reports
 
 You may check out the LibYAML source code from
-[LibYAML HG repository](https://bitbucket.org/xi/libyaml).
+[LibYAML Git repository](https://github.com/yaml/libyaml/).
 
 If you find a bug in LibYAML, please
-[file a bug report](https://bitbucket.org/xi/libyaml/issues/new).
-You may review open bugs through
-[the list of open tickets](https://bitbucket.org/xi/libyaml/issues?status=new&status=open).
+[file a bug report](https://github.com/yaml/libyaml/issues/).
 
-You may discuss LibYAML at
-[the YAML-core mailing list](http://lists.sourceforge.net/lists/listinfo/yaml-core).
+You can discuss LibYAML with the developers on IRC: `#libyaml` irc.freenode.net
 
 ## Documentation
 
@@ -145,7 +141,7 @@ if they cannot be satisfied.
 ### API
 
 Note: the API may change drastically. You may also check the header file:
-<https://bitbucket.org/xi/libyaml/src/tip/include/yaml.h>
+<https://github.com/yaml/libyaml/blob/master/include/yaml.h>
 
 #### Parser API Synopsis
 
@@ -279,17 +275,22 @@ return 0;
 
 ### Examples
 
-You may check
-[tests and examples](https://bitbucket.org/xi/libyaml/src/tip/tests/)
+You may check out
+[tests](https://github.com/yaml/libyaml/tree/master/tests) and
+[examples](https://github.com/yaml/libyaml/tree/master/examples) and
 in the source distribution.
 
 
 ## Copyright
 
-The LibYAML library is written by [Kirill Simonov](mailto:xi@resolvent.net).
+Copyright (c) 2017-2018 Ingy döt Net
+Copyright (c) 2006-2016 Kirill Simonov
+
+The LibYAML library was written by [Kirill Simonov](mailto:xi@resolvent.net).
+It is now maintained by the YAML community.
 
 LibYAML is released under the MIT license.
 
-This project is developed for [Python Software Foundation](http://www.python.org/psf/)
+This project was developed for [Python Software Foundation](http://www.python.org/psf/)
 as a part of [Google Summer of Code](http://code.google.com/soc/2006/psf/appinfo.html?csaid=75A3CBE3EC4B3DB2)
 under the mentorship of [Clark Evans](http://clarkevans.com/).
