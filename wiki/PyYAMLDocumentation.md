@@ -478,7 +478,7 @@ A good introduction to the YAML syntax is [Chapter 2 of the YAML
 specification](http://yaml.org/spec/1.1/#id857168).
 
 You may also check [the YAML
-cookbook](http://yaml4r.sourceforge.net/cookbook/). Note that it is focused on
+cookbook](https://yaml.org/YAML_for_ruby.html). Note that it is focused on
 a Ruby implementation and uses the old YAML 1.0 syntax.
 
 Here we present most common YAML constructs together with the corresponding
