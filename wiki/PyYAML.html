@@ -14,7 +14,7 @@
   <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -27,13 +27,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -322,9 +320,6 @@ margin: auto;
 padding: 1em;
 max-width: 44em; }
 </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="pyyaml">PyYAML</h1>
@@ -345,26 +340,25 @@ max-width: 44em; }
 <h2 id="requirements">Requirements</h2>
 <p>PyYAML requires Python 2.7 or Python 3.4+.</p>
 <h2 id="download-and-installation">Download and Installation</h2>
-<p>The current stable release of PyYAML: <em>3.13</em>.</p>
+<p>The current stable release of PyYAML: <em>5.1</em>.</p>
 <p>Download links:</p>
 <ul>
-<li><em>TAR.GZ package</em>: <a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13.tar.gz" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13.tar.gz</a></li>
-<li><em>ZIP package</em>: <a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13.zip" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13.zip</a></li>
+<li><em>TAR.GZ package</em>: <a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1.tar.gz" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1.tar.gz</a> <!-- * *ZIP package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.1.zip> --></li>
 <li><em>Windows installers (32-bit)</em>:
 <ul>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win32.whl</a> (for Python 2.7)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win32.whl</a> (for Python 3.4)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win32.whl</a> (for Python 3.5)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win32.whl</a> (for Python 3.6)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win32.whl</a> (for Python 3.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win32.whl</a> (for Python 2.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win32.whl</a> (for Python 3.4)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win32.whl</a> (for Python 3.5)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win32.whl</a> (for Python 3.6)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win32.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win32.whl</a> (for Python 3.7)</li>
 </ul></li>
 <li><em>Windows installers (64-bit)</em>:
 <ul>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win_amd64.whl</a> (for Python 2.7)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win_amd64.whl</a> (for Python 3.4)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win_amd64.whl</a> (for Python 3.5)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win_amd64.whl</a> (for Python 3.6)</li>
-<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win_amd64.whl</a> (for Python 3.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win_amd64.whl</a> (for Python 2.7)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win_amd64.whl</a> (for Python 3.4)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win_amd64.whl</a> (for Python 3.5)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win_amd64.whl</a> (for Python 3.6)</li>
+<li><a href="http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win_amd64.whl" class="uri">http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win_amd64.whl</a> (for Python 3.7)</li>
 </ul></li>
 </ul>
 <p>Unpack the archive and install the package by executing</p>
@@ -375,37 +369,73 @@ max-width: 44em; }
 <pre><code>$ python setup.py test</code></pre>
 <h2 id="documentation">Documentation</h2>
 <p><em>Quick example (see documentation for loading multiple documents):</em></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> yaml</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.load(<span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">... name: Vorlin Laruknuzum</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">... sex: Male</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">... class: Priest</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">... title: Acolyte</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">... hp: [32, 71]</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">... sp: [1, 13]</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">... gold: 423</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">... inventory:</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">... - a Holy Book of Prayers (Words of Wisdom)</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">... - an Azure Potion of Cure Light Wounds</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">... - a Silver Wand of Wonder</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="st">... &quot;&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">{<span class="st">'name'</span>: <span class="st">'Vorlin Laruknuzum'</span>, <span class="st">'gold'</span>: <span class="dv">423</span>, <span class="st">'title'</span>: <span class="st">'Acolyte'</span>, <span class="st">'hp'</span>: [<span class="dv">32</span>, <span class="dv">71</span>],</a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="st">'sp'</span>: [<span class="dv">1</span>, <span class="dv">13</span>], <span class="st">'sex'</span>: <span class="st">'Male'</span>, <span class="st">'inventory'</span>: [<span class="st">'a Holy Book of Prayers (Words of Wisdom)'</span>,</a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="st">'an Azure Potion of Cure Light Wounds'</span>, <span class="st">'a Siver Wand of Wonder'</span>], <span class="st">'class'</span>: <span class="st">'Priest'</span>}</a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'name'</span>: <span class="st">&quot;The Cloak 'Colluin'&quot;</span>, <span class="st">'depth'</span>: <span class="dv">5</span>, <span class="st">'rarity'</span>: <span class="dv">45</span>,</a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">... <span class="st">'weight'</span>: <span class="dv">10</span>, <span class="st">'cost'</span>: <span class="dv">50000</span>, <span class="st">'flags'</span>: [<span class="st">'INT'</span>, <span class="st">'WIS'</span>, <span class="st">'SPEED'</span>, <span class="st">'STEALTH'</span>]})</a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24">name: The Cloak <span class="st">'Colluin'</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25">rarity: <span class="dv">45</span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26">flags: [INT, WIS, SPEED, STEALTH]</a>
-<a class="sourceLine" id="cb4-27" data-line-number="27">weight: <span class="dv">10</span></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28">cost: <span class="dv">50000</span></a>
-<a class="sourceLine" id="cb4-29" data-line-number="29">depth: <span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> yaml</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.load(<span class="st">&quot;&quot;&quot;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">... name: Vorlin Laruknuzum</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="st">... sex: Male</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">... class: Priest</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="st">... title: Acolyte</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="st">... hp: [32, 71]</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="st">... sp: [1, 13]</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="st">... gold: 423</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="st">... inventory:</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="st">... - a Holy Book of Prayers (Words of Wisdom)</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="st">... - an Azure Potion of Cure Light Wounds</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="st">... - a Silver Wand of Wonder</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="st">... &quot;&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb4-16" title="16"></a>
+<a class="sourceLine" id="cb4-17" title="17">{<span class="st">'name'</span>: <span class="st">'Vorlin Laruknuzum'</span>, <span class="st">'gold'</span>: <span class="dv">423</span>, <span class="st">'title'</span>: <span class="st">'Acolyte'</span>, <span class="st">'hp'</span>: [<span class="dv">32</span>, <span class="dv">71</span>],</a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="st">'sp'</span>: [<span class="dv">1</span>, <span class="dv">13</span>], <span class="st">'sex'</span>: <span class="st">'Male'</span>, <span class="st">'inventory'</span>: [<span class="st">'a Holy Book of Prayers (Words of Wisdom)'</span>,</a>
+<a class="sourceLine" id="cb4-19" title="19"><span class="st">'an Azure Potion of Cure Light Wounds'</span>, <span class="st">'a Siver Wand of Wonder'</span>], <span class="st">'class'</span>: <span class="st">'Priest'</span>}</a>
+<a class="sourceLine" id="cb4-20" title="20"></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'name'</span>: <span class="st">&quot;The Cloak 'Colluin'&quot;</span>, <span class="st">'depth'</span>: <span class="dv">5</span>, <span class="st">'rarity'</span>: <span class="dv">45</span>,</a>
+<a class="sourceLine" id="cb4-22" title="22">... <span class="st">'weight'</span>: <span class="dv">10</span>, <span class="st">'cost'</span>: <span class="dv">50000</span>, <span class="st">'flags'</span>: [<span class="st">'INT'</span>, <span class="st">'WIS'</span>, <span class="st">'SPEED'</span>, <span class="st">'STEALTH'</span>]})</a>
+<a class="sourceLine" id="cb4-23" title="23"></a>
+<a class="sourceLine" id="cb4-24" title="24">name: The Cloak <span class="st">'Colluin'</span></a>
+<a class="sourceLine" id="cb4-25" title="25">rarity: <span class="dv">45</span></a>
+<a class="sourceLine" id="cb4-26" title="26">flags: [INT, WIS, SPEED, STEALTH]</a>
+<a class="sourceLine" id="cb4-27" title="27">weight: <span class="dv">10</span></a>
+<a class="sourceLine" id="cb4-28" title="28">cost: <span class="dv">50000</span></a>
+<a class="sourceLine" id="cb4-29" title="29">depth: <span class="dv">5</span></a></code></pre></div>
 <p>For more details, please check <a href="./PyYAMLDocumentation">PyYAML Documentation</a>.</p>
 <h2 id="history">History</h2>
+<p><em>5.1 (2019-03-13)</em></p>
+<ul>
+<li>Incompatible changes:</li>
+<li>#257 – Deprecate yaml.load and add FullLoader and UnsafeLoader classes</li>
+<li>#256 – Make default_flow_style=False</li>
+<li>Features:</li>
+<li>#158 – Support escaped slash in double quotes “/”</li>
+<li>#45 – Allow colon in a plain scalar in a flow context</li>
+<li>#63 – Adding support to Unicode characters over codepoint 0xffff</li>
+<li>#254 – Allow to turn off sorting keys in Dumper</li>
+<li>Bugfixes:</li>
+<li>#129 – Remove call to <code>ord</code> in lib3 emitter code</li>
+<li>Other:</li>
+<li>#35 – Some modernization of the test running</li>
+<li>#42 – Install tox in a virtualenv</li>
+<li>#48 – Fix typos</li>
+<li>#55 – Improve RepresenterError creation</li>
+<li>#59 – Resolves #57, update readme issues link</li>
+<li>#60 – Document and test Python 3.6 support</li>
+<li>#61 – Use Travis CI built in pip cache support</li>
+<li>#62 – Remove tox workaround for Travis CI</li>
+<li>#75 – add 3.12 changelog</li>
+<li>#76 – Fallback to Pure Python if Compilation fails</li>
+<li>#84 – Drop unsupported Python 3.3</li>
+<li>#102 – Include license file in the generated wheel package</li>
+<li>#105 – Removed Python 2.6 &amp; 3.3 support</li>
+<li>#111 – Remove commented out Psyco code</li>
+<li>#149 – Test on Python 3.7-dev</li>
+<li>#175 – Updated link to pypi in release announcement</li>
+<li>#181 – Import Hashable from collections.abc</li>
+<li>#194 – Reverting https://github.com/yaml/pyyaml/pull/74</li>
+<li>#195 – Build libyaml on travis</li>
+<li>#196 – Force cython when building sdist</li>
+<li>#261 – Skip certain unicode tests when maxunicode not &gt; 0xffff</li>
+<li>#263 – Windows Appveyor build</li>
+</ul>
 <p><em>3.13 (2018-07-05)</em></p>
 <ul>
 <li>Rebuild wheels using latest Cython for Python 3.7 support.</li>
@@ -508,7 +538,7 @@ max-width: 44em; }
 <li>Initial release. The version number reflects the codename of the project (PyYAML 3000) and differenciates it from the abandoned PyYaml module.</li>
 </ul>
 <h2 id="author-and-copyright">Author and Copyright</h2>
-<p>Copyright (c) 2017-2018 Ingy döt Net Copyright (c) 2006-2016 Kirill Simonov</p>
+<p>Copyright (c) 2017-2019 Ingy döt Net Copyright (c) 2006-2016 Kirill Simonov</p>
 <p>The PyYAML module was written by <a href="mailto:xi@resolvent.net">Kirill Simonov</a>. It is now maintained by the YAML community.</p>
 <p>PyYAML is released under the MIT license.</p>
 </body>

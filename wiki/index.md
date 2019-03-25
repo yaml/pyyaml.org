@@ -14,6 +14,8 @@
 
 ## PyYAML News
 
+_2019-03-13_: *[LibYAML](/wiki/LibYAML) 0.2.2* and *[PyYAML](/wiki/PyYAML) 5.1* are released.
+
 _2018-07-05_: *[PyYAML](/wiki/PyYAML) 3.13* is released.
 
 _2018-06-24_: *[LibYAML](/wiki/LibYAML) 0.2.1* is released.

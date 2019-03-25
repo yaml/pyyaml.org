@@ -29,24 +29,24 @@ PyYAML requires Python 2.7 or Python 3.4+.
 
 ## Download and Installation
 
-The current stable release of PyYAML: *3.13*.
+The current stable release of PyYAML: *5.1*.
 
 Download links:
 
-* *TAR.GZ package*: <http://pyyaml.org/download/pyyaml/PyYAML-3.13.tar.gz>
-* *ZIP package*: <http://pyyaml.org/download/pyyaml/PyYAML-3.13.zip>
+* *TAR.GZ package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.1.tar.gz>
+<!-- * *ZIP package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.1.zip> -->
 * *Windows installers (32-bit)*:
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win32.whl> (for Python 2.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win32.whl> (for Python 3.4)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win32.whl> (for Python 3.5)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win32.whl> (for Python 3.6)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win32.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win32.whl> (for Python 2.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win32.whl> (for Python 3.4)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win32.whl> (for Python 3.5)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win32.whl> (for Python 3.6)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win32.whl> (for Python 3.7)
 * *Windows installers (64-bit)*:
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp27-cp27m-win_amd64.whl> (for Python 2.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp34-cp34m-win_amd64.whl> (for Python 3.4)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp35-cp35m-win_amd64.whl> (for Python 3.5)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp36-cp36m-win_amd64.whl> (for Python 3.6)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-3.13-cp37-cp37m-win_amd64.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp27-cp27m-win_amd64.whl> (for Python 2.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp34-cp34m-win_amd64.whl> (for Python 3.4)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp35-cp35m-win_amd64.whl> (for Python 3.5)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp36-cp36m-win_amd64.whl> (for Python 3.6)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.1-cp37-cp37m-win_amd64.whl> (for Python 3.7)
 
 Unpack the archive and install the package by executing
 
@@ -101,6 +101,42 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 
 
 ## History
+
+*5.1 (2019-03-13)*
+
+* Incompatible changes:
+* #257 -- Deprecate yaml.load and add FullLoader and UnsafeLoader classes
+* #256 -- Make default_flow_style=False
+* Features:
+* #158 -- Support escaped slash in double quotes "\/"
+* #45 -- Allow colon in a plain scalar in a flow context
+* #63 -- Adding support to Unicode characters over codepoint 0xffff
+* #254 -- Allow to turn off sorting keys in Dumper
+* Bugfixes:
+* #129 -- Remove call to `ord` in lib3 emitter code
+* Other:
+* #35 -- Some modernization of the test running
+* #42 -- Install tox in a virtualenv
+* #48 -- Fix typos
+* #55 -- Improve RepresenterError creation
+* #59 -- Resolves #57, update readme issues link
+* #60 -- Document and test Python 3.6 support
+* #61 -- Use Travis CI built in pip cache support
+* #62 -- Remove tox workaround for Travis CI
+* #75 -- add 3.12 changelog
+* #76 -- Fallback to Pure Python if Compilation fails
+* #84 -- Drop unsupported Python 3.3
+* #102 -- Include license file in the generated wheel package
+* #105 -- Removed Python 2.6 & 3.3 support
+* #111 -- Remove commented out Psyco code
+* #149 -- Test on Python 3.7-dev
+* #175 -- Updated link to pypi in release announcement
+* #181 -- Import Hashable from collections.abc
+* #194 -- Reverting https://github.com/yaml/pyyaml/pull/74
+* #195 -- Build libyaml on travis
+* #196 -- Force cython when building sdist
+* #261 -- Skip certain unicode tests when maxunicode not > 0xffff
+* #263 -- Windows Appveyor build
 
 *3.13 (2018-07-05)*
 
@@ -243,7 +279,7 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 
 ## Author and Copyright
 
-Copyright (c) 2017-2018 Ingy döt Net
+Copyright (c) 2017-2019 Ingy döt Net
 Copyright (c) 2006-2016 Kirill Simonov
 
 The PyYAML module was written by [Kirill Simonov](mailto:xi@resolvent.net).

@@ -8,8 +8,8 @@ Simple install:
 
     pip install pyyaml
 
-To install from source, download the source package *PyYAML-3.13.tar.gz* and
-unpack it. Go to the directory *PyYAML-3.13* and run:
+To install from source, download the source package *PyYAML-5.1.tar.gz* and
+unpack it. Go to the directory *PyYAML-5.1* and run:
 
     $ python setup.py install
 
