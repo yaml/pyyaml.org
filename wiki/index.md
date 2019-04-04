@@ -72,3 +72,8 @@ _2006-05-07_: *[PyYAML](/wiki/PyYAML) 3.01* is released.
 _2006-03-26_: *PySyck 0.61.2* is released.
 
 _2006-03-18_: *PySyck 0.61.1* is released.
+
+## About this website
+
+This website is hosted on GitHub:
+<a href="https://github.com/yaml/pyyaml.org">https://github.com/yaml/pyyaml.org</a>
