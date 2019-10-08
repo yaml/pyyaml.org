@@ -294,7 +294,7 @@ You may even dump instances of Python classes.
 ```
 
 `yaml.dump` supports a number of keyword arguments that specify formatting
-details for the emitter. For instance, you may set the preferred intendation
+details for the emitter. For instance, you may set the preferred indentation
 and width, use the canonical YAML format or force preferred style for scalars
 and collections.
 
@@ -769,7 +769,7 @@ right hand: *A
 
 expresses the idea of a hero holding a heavy sword in both hands.
 
-PyYAML now fully supports recursive objects. For instance, the document 
+PyYAML now fully supports recursive objects. For instance, the document
 ``` {.yaml}
 &A [ *A ]
 ```

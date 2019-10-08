@@ -224,8 +224,8 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
  * Make the encoding of the unicode->str conversion explicit; fixed #52.
  * Fixed a problem when the `DOCUMENT-END` event is not emitted until the beginning
    of the next document is available. Fixed #51. Thanks edward(at)sweetbytes.net
-   for the bug report. 
- * Improve output of float values. Fixed #49. 
+   for the bug report.
+ * Improve output of float values. Fixed #49.
  * Fix the bug when the path in `add_path_resolver` contains boolean values.
    Fixed #43 (thanks to jstroud(at)mbi.ucla.edu for reporting and pointing to the cause).
  * Use the types module instead of constructing type objects by hand. Fixed #41.
@@ -241,10 +241,10 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
  * Sort dictionary keys (close #23). Mapping node values are now represented as lists of pairs
    instead of dictionaries. Do not check for duplicate mapping keys as it didn't work correctly anyway.
  * Fix invalid output of single-quoted scalars in cases when a single
-   quote is not escaped when preceeded by whitespaces or line breaks
+   quote is not escaped when preceded by whitespaces or line breaks
    (close #17).
  * To make porting easier, rewrite Parser not using generators.
- * Fix handling of unexpected block mapping values, like 
+ * Fix handling of unexpected block mapping values, like
    {{{
    : foo
    }}}
@@ -274,7 +274,7 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 *3.01 (2006-05-07)*
 
  * Initial release.  The version number reflects the codename of the
-   project (PyYAML 3000) and differenciates it from the abandoned
+   project (PyYAML 3000) and differentiates it from the abandoned
    PyYaml module.
 
 ## Author and Copyright
