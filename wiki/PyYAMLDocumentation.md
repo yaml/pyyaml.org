@@ -1649,12 +1649,12 @@ class MyYAMLObject(YAMLObject):
     yaml_flow_style = ...
 
     @classmethod
-    def from_yaml(cls, loader, node):
+    def from_yaml(cls, constructor, node):
         # ...
         return data
 
     @classmethod
-    def to_yaml(cls, dumper, data):
+    def to_yaml(cls, representer, data):
         # ...
         return node
 ```
