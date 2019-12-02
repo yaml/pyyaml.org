@@ -10,9 +10,16 @@
 * [PyYAML Repository](https://github.com/yaml/pyyaml/)
 * [PyYAML Issues](https://github.com/yaml/pyyaml/issues/)
 * PyYAML Development Chat - `#pyyaml` irc.freenode.net
-
+* [PyYAML Recent Release Downloads](/download/pyyaml)
+* [PyYAML Legacy Release Downloads](/download/pyyaml-legacy)
 
 ## PyYAML News
+
+_2019-12-02_: *[PyYAML](/wiki/PyYAML) 5.2* is released.
+
+_2019-07-30_: *[PyYAML](/wiki/PyYAML) 5.1.2* is released.
+
+_2019-06-06_: *[PyYAML](/wiki/PyYAML) 5.1.1* is released.
 
 _2019-03-13_: *[LibYAML](/wiki/LibYAML) 0.2.2* and *[PyYAML](/wiki/PyYAML) 5.1* are released.
 

@@ -400,6 +400,13 @@ max-width: 44em; }
 <a class="sourceLine" id="cb4-29" title="29">depth: <span class="dv">5</span></a></code></pre></div>
 <p>For more details, please check <a href="./PyYAMLDocumentation">PyYAML Documentation</a>.</p>
 <h2 id="history">History</h2>
+<p><em>5.2 (2019-12-02)</em></p>
+<ul>
+<li>Repair incompatibilities introduced with 5.1. The default Loader was changed, but several methods like add_constructor still used the old default #279 – A more flexible fix for custom tag constructors #287 – Change default loader for yaml.add_constructor #305 – Change default loader for add_implicit_resolver, add_path_resolver</li>
+<li>Make FullLoader safer by removing python/object/apply from the default FullLoader #347 – Move constructor for object/apply to UnsafeConstructor</li>
+<li>Fix bug introduced in 5.1 where quoting went wrong on systems with sys.maxunicode &lt;= 0xffff #276 – Fix logic for quoting special characters</li>
+<li>Other PRs: #280 – Update CHANGES for 5.1</li>
+</ul>
 <p><em>5.1 (2019-03-13)</em></p>
 <ul>
 <li>Incompatible changes:</li>

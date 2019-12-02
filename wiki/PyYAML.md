@@ -102,6 +102,20 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 
 ## History
 
+*5.2 (2019-12-02)*
+
+* Repair incompatibilities introduced with 5.1. The default Loader was changed,
+  but several methods like add_constructor still used the old default
+  #279 -- A more flexible fix for custom tag constructors
+  #287 -- Change default loader for yaml.add_constructor
+  #305 -- Change default loader for add_implicit_resolver, add_path_resolver
+* Make FullLoader safer by removing python/object/apply from the default FullLoader
+  #347 -- Move constructor for object/apply to UnsafeConstructor
+* Fix bug introduced in 5.1 where quoting went wrong on systems with sys.maxunicode <= 0xffff
+  #276 -- Fix logic for quoting special characters
+* Other PRs:
+  #280 -- Update CHANGES for 5.1
+
 *5.1 (2019-03-13)*
 
 * Incompatible changes:
