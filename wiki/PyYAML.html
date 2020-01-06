@@ -400,6 +400,24 @@ max-width: 44em; }
 <a class="sourceLine" id="cb4-29" title="29">depth: <span class="dv">5</span></a></code></pre></div>
 <p>For more details, please check <a href="./PyYAMLDocumentation">PyYAML Documentation</a>.</p>
 <h2 id="history">History</h2>
+<p><em>5.3 (2020-01-06)</em></p>
+<ul>
+<li>#290 – Use <code>is</code> instead of equality for comparing with <code>None</code></li>
+<li>#270 – fix typos and stylistic nit</li>
+<li>#309 – Fix up small typo</li>
+<li>#161 – Fix handling of <strong>slots</strong></li>
+<li>#358 – Allow calling <code>add_multi_constructor</code> with None</li>
+<li>#285 – Add use of <code>safe_load()</code> function in README</li>
+<li>#351 – Fix reader for Unicode code points over 0xFFFF</li>
+<li>#360 – Enable certain unicode tests when maxunicode not &gt; 0xffff</li>
+<li>#359 – Use <code>full_load</code> in yaml-highlight example</li>
+<li>#244 – Document that PyYAML is implemented with Cython</li>
+<li>#329 – Fix for Python 3.10</li>
+<li>#310 – increase size of index, line, and column fields</li>
+<li>#260 – remove some unused imports</li>
+<li>#163 – Create timezone-aware datetimes when parsed as such</li>
+<li>#363 – Add tests for timezone</li>
+</ul>
 <p><em>5.2 (2019-12-02)</em></p>
 <ul>
 <li>Repair incompatibilities introduced with 5.1. The default Loader was changed, but several methods like add_constructor still used the old default #279 – A more flexible fix for custom tag constructors #287 – Change default loader for yaml.add_constructor #305 – Change default loader for add_implicit_resolver, add_path_resolver</li>

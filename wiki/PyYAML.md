@@ -102,6 +102,25 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 
 ## History
 
+*5.3 (2020-01-06)*
+
+* #290 -- Use `is` instead of equality for comparing with `None`
+* #270 -- fix typos and stylistic nit
+* #309 -- Fix up small typo
+* #161 -- Fix handling of __slots__
+* #358 -- Allow calling `add_multi_constructor` with None
+* #285 -- Add use of `safe_load()` function in README
+* #351 -- Fix reader for Unicode code points over 0xFFFF
+* #360 -- Enable certain unicode tests when maxunicode not > 0xffff
+* #359 -- Use `full_load` in yaml-highlight example
+* #244 -- Document that PyYAML is implemented with Cython
+* #329 -- Fix for Python 3.10
+* #310 -- increase size of index, line, and column fields
+* #260 -- remove some unused imports
+* #163 -- Create timezone-aware datetimes when parsed as such
+* #363 -- Add tests for timezone
+
+
 *5.2 (2019-12-02)*
 
 * Repair incompatibilities introduced with 5.1. The default Loader was changed,
