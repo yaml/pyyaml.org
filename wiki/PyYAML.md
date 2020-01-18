@@ -40,11 +40,13 @@ Download links:
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp35-cp35m-win32.whl> (for Python 3.5)
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp36-cp36m-win32.whl> (for Python 3.6)
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp37-cp37m-win32.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp38-cp38m-win32.whl> (for Python 3.8)
 * *Windows installers (64-bit)*:
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp27-cp27m-win_amd64.whl> (for Python 2.7)
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp35-cp35m-win_amd64.whl> (for Python 3.5)
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp36-cp36m-win_amd64.whl> (for Python 3.6)
     * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp37-cp37m-win_amd64.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp38-cp38m-win_amd64.whl> (for Python 3.8)
 
 Unpack the archive and install the package by executing
 
