@@ -15,6 +15,8 @@
 
 ## PyYAML News
 
+_2020-03-18_: *[PyYAML](/wiki/PyYAML) 5.3.1* is released.
+
 _2020-01-06_: *[PyYAML](/wiki/PyYAML) 5.3* is released.
 
 _2019-12-02_: *[PyYAML](/wiki/PyYAML) 5.2* is released.

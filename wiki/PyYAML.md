@@ -33,20 +33,20 @@ The current stable release of PyYAML: *5.3*.
 
 Download links:
 
-* *TAR.GZ package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.3.tar.gz>
+* *TAR.GZ package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz>
 <!-- * *ZIP package*: <http://pyyaml.org/download/pyyaml/PyYAML-5.3.zip> -->
 * *Windows installers (32-bit)*:
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp27-cp27m-win32.whl> (for Python 2.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp35-cp35m-win32.whl> (for Python 3.5)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp36-cp36m-win32.whl> (for Python 3.6)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp37-cp37m-win32.whl> (for Python 3.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp38-cp38m-win32.whl> (for Python 3.8)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp27-cp27m-win32.whl> (for Python 2.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp35-cp35m-win32.whl> (for Python 3.5)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp36-cp36m-win32.whl> (for Python 3.6)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp37-cp37m-win32.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp38-cp38m-win32.whl> (for Python 3.8)
 * *Windows installers (64-bit)*:
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp27-cp27m-win_amd64.whl> (for Python 2.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp35-cp35m-win_amd64.whl> (for Python 3.5)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp36-cp36m-win_amd64.whl> (for Python 3.6)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp37-cp37m-win_amd64.whl> (for Python 3.7)
-    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3-cp38-cp38m-win_amd64.whl> (for Python 3.8)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp27-cp27m-win_amd64.whl> (for Python 2.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp35-cp35m-win_amd64.whl> (for Python 3.5)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp36-cp36m-win_amd64.whl> (for Python 3.6)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp37-cp37m-win_amd64.whl> (for Python 3.7)
+    * <http://pyyaml.org/download/pyyaml/PyYAML-5.3.1-cp38-cp38m-win_amd64.whl> (for Python 3.8)
 
 Unpack the archive and install the package by executing
 
@@ -101,6 +101,10 @@ For more details, please check [PyYAML Documentation](./PyYAMLDocumentation).
 
 
 ## History
+
+*5.3.1 (2020-03-18)*
+
+* #386 -- Prevents arbitrary code execution during python/object/new constructor
 
 *5.3 (2020-01-06)*
 
