@@ -4,9 +4,9 @@ LibYAML is a YAML parser and emitter library.
 
 ## Download and Installation
 
-The current release of LibYAML: *0.2.2 (2019-03-13)*.
+The current release of LibYAML: *0.2.3 (2020-04-11)*.
 
-Download the source package: <http://pyyaml.org/download/libyaml/yaml-0.2.2.tar.gz>.
+Download the source package: <http://pyyaml.org/download/libyaml/yaml-0.2.3.tar.gz>.
 
 To build and install LibYAML, run
 
