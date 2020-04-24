@@ -6,18 +6,18 @@ PyYAML is a YAML parser and emitter for Python.
 
 Simple install:
 
-    pip install pyyaml
+    python3 -m pip install pyyaml
 
 To install from source, download the source package *PyYAML-5.1.tar.gz* and
 unpack it. Go to the directory *PyYAML-5.1* and run:
 
-    $ python setup.py install
+    $ python3 setup.py install
 
 If you want to use LibYAML bindings, which are much faster than the pure Python
 version, you need to download and install [LibYAML](./LibYAML).  Then you
 may build and install the bindings by executing
 
-    $ python setup.py --with-libyaml install
+    $ python3 setup.py --with-libyaml install
 
 In order to use [LibYAML](./LibYAML) based parser and emitter, use the
 classes `CParser` and `CEmitter`.  For instance,
@@ -54,7 +54,7 @@ document = """
     c: 3
     d: 4
 """
-print yaml.dump(yaml.load(document))
+print(yaml.dump(yaml.load(document)))
 ```
 _give_
 ```
@@ -73,7 +73,7 @@ If you want collections to be always serialized in the block style, set the para
 `default_flow_style` of `dump()` to `False`. For instance,
 
 ``` {.python}
->>> print yaml.dump(yaml.load(document), default_flow_style=False)
+>>> print(yaml.dump(yaml.load(document), default_flow_style=False))
 a: 1
 b:
   c: 3
@@ -150,8 +150,8 @@ the string/file. If no *BOM* is present, the *utf-8* encoding is assumed.
 
 {'hello': u'\u041f\u0440\u0438\u0432\u0435\u0442!'}
 
->>> stream = file('document.yaml', 'r')    # 'document.yaml' contains a single YAML document.
->>> yaml.load(stream)
+>>> with open('document.yaml', 'r') as stream:  # 'document.yaml' contains a single YAML document.
+...     yaml.load(stream)
 [...]    # A Python object corresponding to the document.
 ```
 
@@ -177,7 +177,7 @@ the `yaml.load_all` function.
 ... """
 
 >>> for data in yaml.load_all(documents):
-...     print data
+...     print(data)
 
 {'description': 'A set of handgear with sparks that crackle across its knuckleguards.\n',
 'name': "The Set of Gauntlets 'Pauraegen'"}
@@ -232,7 +232,7 @@ if you receive a YAML document from an untrusted source such as the Internet.
 The function `yaml.safe_load` limits this ability to simple Python objects like
 integers or lists.
 
-A python object can be marked as safe and thus be recognized by
+A Python object can be marked as safe and thus be recognized by
 `yaml.safe_load`.  To do this, derive it from `yaml.YAMLObject` (as explained
 in section *Constructors, representers, resolvers*) and explicitly set its
 class property `yaml_loader` to `yaml.SafeLoader`.
@@ -242,8 +242,8 @@ class property `yaml_loader` to `yaml.SafeLoader`.
 The `yaml.dump` function accepts a Python object and produces a YAML document.
 
 ``` {.python}
->>> print yaml.dump({'name': 'Silenthand Olleander', 'race': 'Human',
-... 'traits': ['ONE_HAND', 'ONE_EYE']})
+>>> print(yaml.dump({'name': 'Silenthand Olleander', 'race': 'Human',
+... 'traits': ['ONE_HAND', 'ONE_EYE']}))
 
 name: Silenthand Olleander
 race: Human
@@ -255,9 +255,9 @@ binary file.  In this case, `yaml.dump` will write the produced YAML document
 into the file.  Otherwise, `yaml.dump` returns the produced document.
 
 ``` {.python}
->>> stream = file('document.yaml', 'w')
->>> yaml.dump(data, stream)    # Write a YAML representation of data to 'document.yaml'.
->>> print yaml.dump(data)      # Output the document to the screen.
+>>> with open('document.yaml', 'w') as stream:
+>>>     yaml.dump(data, stream)  # Write a YAML representation of data to 'document.yaml'.
+>>>     print(yaml.dump(data))   # Output the document to the screen.
 ```
 
 If you need to dump several YAML documents to a single stream, use the function
@@ -267,10 +267,10 @@ Python objects to be serialized into a YAML document. The second optional
 argument is an open file.
 
 ``` {.python}
->>> print yaml.dump([1,2,3], explicit_start=True)
+>>> print(yaml.dump([1,2,3], explicit_start=True))
 --- [1, 2, 3]
 
->>> print yaml.dump_all([1,2,3], explicit_start=True)
+>>> print(yaml.dump_all([1,2,3], explicit_start=True))
 --- 1
 --- 2
 --- 3
@@ -288,7 +288,7 @@ You may even dump instances of Python classes.
 ...         return "%s(name=%r, hp=%r, sp=%r)" % (
 ...             self.__class__.__name__, self.name, self.hp, self.sp)
 
->>> print yaml.dump(Hero("Galain Ysseleg", hp=-3, sp=2))
+>>> print(yaml.dump(Hero("Galain Ysseleg", hp=-3, sp=2)))
 
 !!python/object:__main__.Hero {hp: -3, name: Galain Ysseleg, sp: 2}
 ```
@@ -299,18 +299,18 @@ and width, use the canonical YAML format or force preferred style for scalars
 and collections.
 
 ``` {.python}
->>> print yaml.dump(range(50))
+>>> print(yaml.dump(range(50)))
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
   43, 44, 45, 46, 47, 48, 49]
 
->>> print yaml.dump(range(50), width=50, indent=4)
+>>> print(yaml.dump(range(50), width=50, indent=4))
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
     16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
     28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
     40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
 
->>> print yaml.dump(range(5), canonical=True)
+>>> print(yaml.dump(range(5), canonical=True))
 ---
 !!seq [
   !!int "0",
@@ -320,14 +320,14 @@ and collections.
   !!int "4",
 ]
 
->>> print yaml.dump(range(5), default_flow_style=False)
+>>> print(yaml.dump(range(5), default_flow_style=False))
 - 0
 - 1
 - 2
 - 3
 - 4
 
->>> print yaml.dump(range(5), default_flow_style=True, default_style='"')
+>>> print(yaml.dump(range(5), default_flow_style=True, default_style='"'))
 [!!int "0", !!int "1", !!int "2", !!int "3", !!int "4"]
 ```
 
@@ -363,8 +363,8 @@ objects:
 
 Monster(name='Cave spider', hp=[2, 6], ac=16, attacks=['BITE', 'HURT'])
 
->>> print yaml.dump(Monster(
-...     name='Cave lizard', hp=[3,6], ac=16, attacks=['BITE','HURT']))
+>>> print(yaml.dump(Monster(
+...     name='Cave lizard', hp=[3,6], ac=16, attacks=['BITE','HURT'])))
 
 !Monster
 ac: 16
@@ -389,14 +389,14 @@ representer for the following `Dice` class:
 ...     def __repr__(self):
 ...         return "Dice(%s,%s)" % self
 
->>> print Dice(3,6)
+>>> print(Dice(3,6))
 Dice(3,6)
 ```
 
 The default representation for `Dice` objects is not pretty:
 
 ``` {.python}
->>> print yaml.dump(Dice(3,6))
+>>> print(yaml.dump(Dice(3,6)))
 
 !!python/object/new:__main__.Dice
 - !!python/tuple [3, 6]
@@ -405,7 +405,7 @@ The default representation for `Dice` objects is not pretty:
 Suppose you want a `Dice` object to represented as `AdB` in YAML:
 
 ``` {.python}
->>> print yaml.dump(Dice(3,6))
+>>> print(yaml.dump(Dice(3,6)))
 
 3d6
 ```
@@ -423,7 +423,7 @@ the tag `!dice`, then we register it.
 Now you may dump an instance of the `Dice` object:
 
 ``` {.python}
->>> print yaml.dump({'gold': Dice(10,6)})
+>>> print(yaml.dump({'gold': Dice(10,6)}))
 {gold: !dice '10d6'}
 ```
 
@@ -432,7 +432,7 @@ Let us add the code to construct a Dice object:
 ``` {.python}
 >>> def dice_constructor(loader, node):
 ...     value = loader.construct_scalar(node)
-...     a, b = map(int, value.split('d'))
+...     a, b = [int(x) for x in value.split('d')]
 ...     return Dice(a, b)
 
 >>> yaml.add_constructor(u'!dice', dice_constructor)
@@ -441,9 +441,9 @@ Let us add the code to construct a Dice object:
 Then you may load a `Dice` object as well:
 
 ``` {.python}
->>> print yaml.load("""
+>>> print(yaml.load("""
 ... initial hit points: !dice 8d4
-... """)
+... """))
 
 {'initial hit points': Dice(8,4)}
 ```
@@ -461,13 +461,13 @@ implicit tag `!dice`. Use `add_implicit_resolver`:
 Now you don't have to specify the tag to define a `Dice` object:
 
 ``` {.python}
->>> print yaml.dump({'treasure': Dice(10,20)})
+>>> print(yaml.dump({'treasure': Dice(10,20)}))
 
 {treasure: 10d20}
 
->>> print yaml.load("""
+>>> print(yaml.load("""
 ... damage: 5d10
-... """)
+... """))
 
 {'damage': Dice(5,10)}
 ```
@@ -1018,7 +1018,7 @@ constructed from for the first document in the stream. If there are no
 documents in the stream, it returns `None`.  `safe_load` recognizes only
 standard YAML tags and cannot construct an arbitrary Python object.
 
-A python object can be marked as safe and thus be recognized by
+A Python object can be marked as safe and thus be recognized by
 `yaml.safe_load`.  To do this, derive it from `yaml.YAMLObject` (as explained
 in section *Constructors, representers, resolvers*) and explicitly set its
 class property `yaml_loader` to `yaml.SafeLoader`.
@@ -1133,9 +1133,10 @@ exception and warn a user.
 
 ``` {.python}
 try:
-    config = yaml.load(file('config.yaml', 'r'))
+    with open('config.yaml', 'r') as stream:
+        config = yaml.load(stream)
 except yaml.YAMLError, exc:
-    print "Error in configuration file:", exc
+    print("Error in configuration file:", exc)
 ```
 
 An exception produced by the YAML processor may point to the problematic position.
@@ -1146,7 +1147,7 @@ An exception produced by the YAML processor may point to the problematic positio
 ... except yaml.YAMLError, exc:
 ...     if hasattr(exc, 'problem_mark'):
 ...         mark = exc.problem_mark
-...         print "Error position: (%s:%s)" % (mark.line+1, mark.column+1)
+...         print("Error position: (%s:%s)" % (mark.line+1, mark.column+1))
 
 Error position: (1:22)
 ```
@@ -1202,7 +1203,7 @@ Example:
 ... """
 
 >>> for token in yaml.scan(document):
-...     print token
+...     print(token)
 
 StreamStartToken(encoding='utf-8')
 
@@ -1311,7 +1312,7 @@ Example:
 ... """
 
 >>> for event in yaml.parse(document):
-...     print event
+...     print(event)
 
 StreamStartEvent()
 
@@ -1348,7 +1349,7 @@ DocumentEndEvent()
 
 StreamEndEvent()
 
->>> print yaml.emit([
+>>> print(yaml.emit([
 ...     yaml.StreamStartEvent(encoding='utf-8'),
 ...     yaml.DocumentStartEvent(explicit=True),
 ...     yaml.MappingStartEvent(anchor=None, tag=u'tag:yaml.org,2002:map', implicit=True, flow_style=False),
@@ -1361,7 +1362,7 @@ StreamEndEvent()
 ...     yaml.MappingEndEvent(),
 ...     yaml.DocumentEndEvent(explicit=True),
 ...     yaml.StreamEndEvent(),
-... ])
+... ]))
 
 ---
 agile languages: [Python, Perl, Ruby]
@@ -1388,12 +1389,12 @@ of key and value nodes.
 Example:
 
 ``` {.python}
->>> print yaml.compose("""
+>>> print(yaml.compose("""
 ... kinds:
 ... - scalar
 ... - sequence
 ... - mapping
-... """)
+... """))
 
 MappingNode(tag=u'tag:yaml.org,2002:map', value=[
     (ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'kinds'), SequenceNode(tag=u'tag:yaml.org,2002:seq', value=[
@@ -1401,10 +1402,10 @@ MappingNode(tag=u'tag:yaml.org,2002:map', value=[
         ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'sequence'),
         ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'mapping')]))])
 
->>> print yaml.serialize(yaml.SequenceNode(tag=u'tag:yaml.org,2002:seq', value=[
+>>> print(yaml.serialize(yaml.SequenceNode(tag=u'tag:yaml.org,2002:seq', value=[
 ...     yaml.ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'scalar'),
 ...     yaml.ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'sequence'),
-...     yaml.ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'mapping')]))
+...     yaml.ScalarNode(tag=u'tag:yaml.org,2002:str', value=u'mapping')])))
 
 - scalar
 - sequence
