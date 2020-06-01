@@ -15,6 +15,8 @@
 
 ## PyYAML News
 
+_2020-06-01_: *[LibYAML](/wiki/LibYAML) 0.2.5* is released.
+
 _2020-04-19_: *[LibYAML](/wiki/LibYAML) 0.2.4* is released.
 
 _2020-04-11_: *[LibYAML](/wiki/LibYAML) 0.2.3* is released.
