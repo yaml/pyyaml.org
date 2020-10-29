@@ -331,10 +331,13 @@ and collections.
 [!!int "0", !!int "1", !!int "2", !!int "3", !!int "4"]
 ```
 
-### Constructors, representers, resolvers
+### Custom tags
 
-You may define your own application-specific tags. The easiest way to do it is
-to define a subclass of `yaml.YAMLObject`:
+You may define your own application-specific tags.
+
+#### Subclassing `yaml.YAMLObject` - simple object
+The easiest to work with a simple object that contains key-value pairs of basic
+Python data types is to define a subclass of `yaml.YAMLObject`:
 
 ``` {.python}
 >>> class Monster(yaml.YAMLObject):
@@ -376,6 +379,8 @@ name: Cave lizard
 `yaml.YAMLObject` uses metaclass magic to register a constructor, which
 transforms a YAML node to a class instance, and a representer, which serializes
 a class instance to a YAML node.
+
+#### Constructors, representers, resolvers
 
 If you don't want to use metaclasses, you may register your constructors and
 representers using the functions `yaml.add_constructor` and
@@ -470,6 +475,78 @@ Now you don't have to specify the tag to define a `Dice` object:
 ... """)
 
 {'damage': Dice(5,10)}
+```
+
+#### Subclassing `yaml.YAMLObject` - complex object
+
+The equivalent of registering a representer and constructor for a custom tag
+can also be achieved by subclassing `yaml.YAMLObject`. Your class may define
+the `from_yaml` and `to_yaml` methods, which are equivalent to registering a
+function as a representer or constructor.
+
+Let's add support for another custom tag `!additive_dice`. It is used to store
+not only number of rolls and dice type, but also an additive modifier. The
+values appear as XdY+A or XdY-A, where A is added or subtracted from the final
+result.
+
+Start with a class extending `tuple` and `yaml.YAMLObject`:
+
+``` {.python}
+>>> class AdditiveDice(tuple, yaml.YAMLObject):
+...     yaml_loader = yaml.SafeLoader
+...     yaml_tag = u'!additive_dice'
+...     def __new__(cls, a, b, x):
+...         return tuple.__new__(cls, [a, b, x])
+...     def __repr__(self):
+...         return "AdditiveDice(%s,%s,%s)" % self
+```
+
+To show the tag value in YAML, add a `to_yaml` method to the class. The method
+will be automatically registered as a represener for the class. Implementation
+of the method itself is equivalent to standalone. The object is converted to a
+scalar node with the tag `!additive_dice`, similar to the representer of the
+`Dice` class.
+
+``` {.python}
+>>> class AdditiveDice(tuple, yaml.YAMLObject):
+...      # other code omitted
+...      @classmethod
+...      def to_yaml(cls, dumper, data):
+...          return dumper.represent_scalar(cls.yaml_tag, u'%dd%d%+d' % data)
+```
+
+You may now dump an instance of the `AdditiveDice` object:
+
+``` {.python}
+>>> print yaml.dump({'roll': AdditiveDice(1,20,-5)})
+{roll: !additive_dice '1d20-5'}
+```
+
+To parse YAML containing the `!additive_dice` tag into an `AdditiveDice` class
+instance, you may add a `from_yaml` method to the class. The method will be
+automatically registered as a constructor for the class. In the implementation,
+the scalar (string) value is parsed into individual components of the`
+`AdditiveDice` tuple.
+
+``` {.python}
+>>> class AdditiveDice(tuple, yaml.YAMLObject):
+...      # other code omitted
+...      @classmethod
+...      def from_yaml(cls, loader, node):
+...          value = loader.construct_scalar(node)
+...          match = re.search(r'(\d+)d(\d+)([+-]\d+)?', value)
+...          a, b, x = map(int, match.groups())
+...          return AdditiveDice(a, b, x)
+```
+
+You may now parse YAML with the `!additive_dice` tag:
+
+``` {.python}
+>>> print yaml.safe_load("""
+... roll instructions: !dice 1d20+5
+... """)
+
+{'roll instructions': AdditiveDice(1,20,5)}
 ```
 
 ## YAML syntax
@@ -769,7 +846,7 @@ right hand: *A
 
 expresses the idea of a hero holding a heavy sword in both hands.
 
-PyYAML now fully supports recursive objects. For instance, the document 
+PyYAML now fully supports recursive objects. For instance, the document
 ``` {.yaml}
 &A [ *A ]
 ```
@@ -1649,12 +1726,12 @@ class MyYAMLObject(YAMLObject):
     yaml_flow_style = ...
 
     @classmethod
-    def from_yaml(cls, loader, node):
+    def from_yaml(cls, constructor, node):
         # ...
         return data
 
     @classmethod
-    def to_yaml(cls, dumper, data):
+    def to_yaml(cls, representer, data):
         # ...
         return node
 ```
