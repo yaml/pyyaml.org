@@ -84,7 +84,7 @@ A valid sequence of events should obey the grammar:
 
 #### Essential Event Attributes
 
-The following attributes affect the intepretation of a YAML document.
+The following attributes affect the interpretation of a YAML document.
 
 * `ALIAS`
     * `anchor` - the alias anchor; `[0-9a-zA-Z_-]+`; not `NULL`.
