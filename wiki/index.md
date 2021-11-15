@@ -1,7 +1,8 @@
 # Welcome to PyYAML
 
 [PyYAML](http://pyyaml.org/wiki/PyYAML) is a full-featured
-[YAML](http://yaml.org/) framework for the Python programming language.
+[YAML](http://yaml.org/) framework for the Python programming language, 
+supporting [YAML 1.1](https://yaml.org/spec/1.1/).
 
 ## PyYAML Resources
 

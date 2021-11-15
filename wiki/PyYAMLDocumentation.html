@@ -347,6 +347,8 @@ max-width: 44em; }
 <a class="sourceLine" id="cb4-13" title="13">output <span class="op">=</span> dump(data, Dumper<span class="op">=</span>Dumper)</a></code></pre></div>
 <p>Note that there are some subtle (but not really significant) differences between pure Python and <a href="./LibYAML">LibYAML</a> based parsers and emitters.</p>
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="yaml-1.2-support">YAML 1.2 support</h3>
+<p><a href="https://yaml.org/spec/1.2/">YAML 1.2</a> is not supported. See feature request <a href="https://github.com/yaml/pyyaml/issues/116">#116</a>.</p>
 <h3 id="dictionaries-without-nested-collections-are-not-dumped-correctly">Dictionaries without nested collections are not dumped correctly</h3>
 <p><em>Why does</em></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">import</span> yaml</a>

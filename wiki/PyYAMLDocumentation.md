@@ -43,6 +43,10 @@ between pure Python and [LibYAML](./LibYAML) based parsers and emitters.
 
 ## Frequently Asked Questions
 
+### YAML 1.2 support
+
+[YAML 1.2](https://yaml.org/spec/1.2/) is not supported. See feature request [#116](https://github.com/yaml/pyyaml/issues/116).
+
 ### Dictionaries without nested collections are not dumped correctly
 
 _Why does_
