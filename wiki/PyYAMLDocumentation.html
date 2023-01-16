@@ -404,10 +404,10 @@ b: {c: 3, d: 4}</code></pre>
 <p><code>yaml.load</code> accepts a byte string, a Unicode string, an open binary file object, or an open text file object. A byte string or a file must be encoded with <em>utf-8</em>, <em>utf-16-be</em> or <em>utf-16-le</em> encoding. <code>yaml.load</code> detects the encoding by checking the <em>BOM</em> (byte order mark) sequence at the beginning of the string/file. If no <em>BOM</em> is present, the <em>utf-8</em> encoding is assumed.</p>
 <p><code>yaml.load</code> returns a Python object.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="op">&gt;&gt;&gt;</span> yaml.load(<span class="st">u&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">... hello: Привет!</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">... hello: Привіт!</span></a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="st">... &quot;&quot;&quot;</span>)    <span class="co"># In Python 3, do not use the 'u' prefix</span></a>
 <a class="sourceLine" id="cb10-4" title="4"></a>
-<a class="sourceLine" id="cb10-5" title="5">{<span class="st">'hello'</span>: <span class="st">u'</span><span class="ch">\u041f\u0440\u0438\u0432\u0435\u0442</span><span class="st">!'</span>}</a>
+<a class="sourceLine" id="cb10-5" title="5">{<span class="st">'hello'</span>: <span class="st">u'</span><span class="ch">\u041f\u0440\u0438\u0432\u0456\u0442</span><span class="st">!'</span>}</a>
 <a class="sourceLine" id="cb10-6" title="6"></a>
 <a class="sourceLine" id="cb10-7" title="7"><span class="op">&gt;&gt;&gt;</span> stream <span class="op">=</span> <span class="bu">file</span>(<span class="st">'document.yaml'</span>, <span class="st">'r'</span>)    <span class="co"># 'document.yaml' contains a single YAML document.</span></a>
 <a class="sourceLine" id="cb10-8" title="8"><span class="op">&gt;&gt;&gt;</span> yaml.load(stream)</a>
