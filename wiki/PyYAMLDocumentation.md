@@ -145,10 +145,10 @@ the string/file. If no *BOM* is present, the *utf-8* encoding is assumed.
 
 ``` {.python}
 >>> yaml.load(u"""
-... hello: Привет!
+... hello: Привіт!
 ... """)    # In Python 3, do not use the 'u' prefix
 
-{'hello': u'\u041f\u0440\u0438\u0432\u0435\u0442!'}
+{'hello': u'\u041f\u0440\u0438\u0432\u0456\u0442!'}
 
 >>> stream = file('document.yaml', 'r')    # 'document.yaml' contains a single YAML document.
 >>> yaml.load(stream)
