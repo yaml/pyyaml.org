@@ -362,13 +362,14 @@ max-width: 44em; }
 b: {c: 3, d: 4}</code></pre>
 <p><em>(see #18, #24)?</em></p>
 <p>It’s a correct output despite the fact that the style of the nested mapping is different.</p>
-<p>By default, PyYAML chooses the style of a collection depending on whether it has nested collections. If a collection has nested collections, it will be assigned the block style. Otherwise it will have the flow style.</p>
-<p>If you want collections to be always serialized in the block style, set the parameter <code>default_flow_style</code> of <code>dump()</code> to <code>False</code>. For instance,</p>
+<p>Prior to version 5.1, PyYAML would by default choose the style of a collection depending on whether it had nested collections. If a collection had nested collections, it would be assigned the block style. Otherwise it would have the flow style.</p>
+<p>If you are using a PyYAML release older than 5.1, and you want collections to be always serialized in the block style, set the parameter <code>default_flow_style</code> of <code>dump()</code> to <code>False</code>. For instance,</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump(yaml.load(document), default_flow_style<span class="op">=</span><span class="va">False</span>)</a>
 <a class="sourceLine" id="cb7-2" title="2">a: <span class="dv">1</span></a>
 <a class="sourceLine" id="cb7-3" title="3">b:</a>
 <a class="sourceLine" id="cb7-4" title="4">  c: <span class="dv">3</span></a>
 <a class="sourceLine" id="cb7-5" title="5">  d: <span class="dv">4</span></a></code></pre></div>
+<p>In PyYAML 5.1 and later, <code>default_flow_style</code> is <code>False</code> by default.</p>
 <h2 id="python-3-support">Python 3 support</h2>
 <p>Starting from the <em>3.08</em> release, PyYAML and LibYAML bindings provide a complete support for Python 3. This is a short outline of differences in PyYAML API between Python 2 and Python 3 versions.</p>
 <p><em>In Python 2:</em></p>
@@ -376,7 +377,7 @@ b: {c: 3, d: 4}</code></pre>
 <li><code>str</code> objects are converted into <code>!!str</code>, <code>!!python/str</code> or <code>!binary</code> nodes depending on whether the object is an ASCII, UTF-8 or binary string.</li>
 <li><code>unicode</code> objects are converted into <code>!!python/unicode</code> or <code>!!str</code> nodes depending on whether the object is an ASCII string or not.</li>
 <li><code>yaml.dump(data)</code> produces the document as a UTF-8 encoded <code>str</code> object.</li>
-<li><code>yaml.dump(data, encoding=('utf-8'|'utf-16-be'|'utf-16-le'))</code> produces a <code>str</code> object in the specified encoding.</li>
+<li><code>yaml.dump(data, encoding=(&#39;utf-8&#39;|&#39;utf-16-be&#39;|&#39;utf-16-le&#39;))</code> produces a <code>str</code> object in the specified encoding.</li>
 <li><code>yaml.dump(data, encoding=None)</code> produces a <code>unicode</code> object.</li>
 </ul>
 <p><em>In Python 3:</em></p>
@@ -385,7 +386,7 @@ b: {c: 3, d: 4}</code></pre>
 <li><code>bytes</code> objects are converted to <code>!!binary</code> nodes.</li>
 <li>For compatibility reasons, <code>!!python/str</code> and <code>!python/unicode</code> tags are still supported and the corresponding nodes are converted to <code>str</code> objects.</li>
 <li><code>yaml.dump(data)</code> produces the document as a <code>str</code> object.</li>
-<li><code>yaml.dump(data, encoding=('utf-8'|'utf-16-be'|'utf-16-le'))</code> produces a <code>bytes</code> object in the specified encoding.</li>
+<li><code>yaml.dump(data, encoding=(&#39;utf-8&#39;|&#39;utf-16-be&#39;|&#39;utf-16-le&#39;))</code> produces a <code>bytes</code> object in the specified encoding.</li>
 </ul>
 <h2 id="tutorial">Tutorial</h2>
 <p>Start with importing the <code>yaml</code> package.</p>
@@ -400,32 +401,32 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb9-5" title="5"><span class="st">... - Epiplemidae</span></a>
 <a class="sourceLine" id="cb9-6" title="6"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb9-7" title="7"></a>
-<a class="sourceLine" id="cb9-8" title="8">[<span class="st">'Hesperiidae'</span>, <span class="st">'Papilionidae'</span>, <span class="st">'Apatelodidae'</span>, <span class="st">'Epiplemidae'</span>]</a></code></pre></div>
+<a class="sourceLine" id="cb9-8" title="8">[<span class="st">&#39;Hesperiidae&#39;</span>, <span class="st">&#39;Papilionidae&#39;</span>, <span class="st">&#39;Apatelodidae&#39;</span>, <span class="st">&#39;Epiplemidae&#39;</span>]</a></code></pre></div>
 <p><code>yaml.load</code> accepts a byte string, a Unicode string, an open binary file object, or an open text file object. A byte string or a file must be encoded with <em>utf-8</em>, <em>utf-16-be</em> or <em>utf-16-le</em> encoding. <code>yaml.load</code> detects the encoding by checking the <em>BOM</em> (byte order mark) sequence at the beginning of the string/file. If no <em>BOM</em> is present, the <em>utf-8</em> encoding is assumed.</p>
 <p><code>yaml.load</code> returns a Python object.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" title="1"><span class="op">&gt;&gt;&gt;</span> yaml.load(<span class="st">u&quot;&quot;&quot;</span></a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="st">... hello: Привет!</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="st">... &quot;&quot;&quot;</span>)    <span class="co"># In Python 3, do not use the 'u' prefix</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">... &quot;&quot;&quot;</span>)    <span class="co"># In Python 3, do not use the &#39;u&#39; prefix</span></a>
 <a class="sourceLine" id="cb10-4" title="4"></a>
-<a class="sourceLine" id="cb10-5" title="5">{<span class="st">'hello'</span>: <span class="st">u'</span><span class="ch">\u041f\u0440\u0438\u0432\u0435\u0442</span><span class="st">!'</span>}</a>
+<a class="sourceLine" id="cb10-5" title="5">{<span class="st">&#39;hello&#39;</span>: <span class="st">u&#39;</span><span class="ch">\u041f\u0440\u0438\u0432\u0435\u0442</span><span class="st">!&#39;</span>}</a>
 <a class="sourceLine" id="cb10-6" title="6"></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="op">&gt;&gt;&gt;</span> stream <span class="op">=</span> <span class="bu">file</span>(<span class="st">'document.yaml'</span>, <span class="st">'r'</span>)    <span class="co"># 'document.yaml' contains a single YAML document.</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="op">&gt;&gt;&gt;</span> stream <span class="op">=</span> <span class="bu">file</span>(<span class="st">&#39;document.yaml&#39;</span>, <span class="st">&#39;r&#39;</span>)    <span class="co"># &#39;document.yaml&#39; contains a single YAML document.</span></a>
 <a class="sourceLine" id="cb10-8" title="8"><span class="op">&gt;&gt;&gt;</span> yaml.load(stream)</a>
 <a class="sourceLine" id="cb10-9" title="9">[...]    <span class="co"># A Python object corresponding to the document.</span></a></code></pre></div>
 <p>If a string or a file contains several documents, you may load them all with the <code>yaml.load_all</code> function.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="op">&gt;&gt;&gt;</span> documents <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="st">... ---</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="st">... name: The Set of Gauntlets 'Pauraegen'</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">... name: The Set of Gauntlets &#39;Pauraegen&#39;</span></a>
 <a class="sourceLine" id="cb11-4" title="4"><span class="st">... description: &gt;</span></a>
 <a class="sourceLine" id="cb11-5" title="5"><span class="st">...     A set of handgear with sparks that crackle</span></a>
 <a class="sourceLine" id="cb11-6" title="6"><span class="st">...     across its knuckleguards.</span></a>
 <a class="sourceLine" id="cb11-7" title="7"><span class="st">... ---</span></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="st">... name: The Set of Gauntlets 'Paurnen'</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">... name: The Set of Gauntlets &#39;Paurnen&#39;</span></a>
 <a class="sourceLine" id="cb11-9" title="9"><span class="st">... description: &gt;</span></a>
 <a class="sourceLine" id="cb11-10" title="10"><span class="st">...   A set of gauntlets that gives off a foul,</span></a>
 <a class="sourceLine" id="cb11-11" title="11"><span class="st">...   acrid odour yet remains untarnished.</span></a>
 <a class="sourceLine" id="cb11-12" title="12"><span class="st">... ---</span></a>
-<a class="sourceLine" id="cb11-13" title="13"><span class="st">... name: The Set of Gauntlets 'Paurnimmen'</span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="st">... name: The Set of Gauntlets &#39;Paurnimmen&#39;</span></a>
 <a class="sourceLine" id="cb11-14" title="14"><span class="st">... description: &gt;</span></a>
 <a class="sourceLine" id="cb11-15" title="15"><span class="st">...   A set of handgear, freezing with unnatural cold.</span></a>
 <a class="sourceLine" id="cb11-16" title="16"><span class="st">... &quot;&quot;&quot;</span></a>
@@ -433,12 +434,12 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb11-18" title="18"><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> data <span class="kw">in</span> yaml.load_all(documents):</a>
 <a class="sourceLine" id="cb11-19" title="19">...     <span class="bu">print</span> data</a>
 <a class="sourceLine" id="cb11-20" title="20"></a>
-<a class="sourceLine" id="cb11-21" title="21">{<span class="st">'description'</span>: <span class="st">'A set of handgear with sparks that crackle across its knuckleguards.</span><span class="ch">\n</span><span class="st">'</span>,</a>
-<a class="sourceLine" id="cb11-22" title="22"><span class="st">'name'</span>: <span class="st">&quot;The Set of Gauntlets 'Pauraegen'&quot;</span>}</a>
-<a class="sourceLine" id="cb11-23" title="23">{<span class="st">'description'</span>: <span class="st">'A set of gauntlets that gives off a foul, acrid odour yet remains untarnished.</span><span class="ch">\n</span><span class="st">'</span>,</a>
-<a class="sourceLine" id="cb11-24" title="24"><span class="st">'name'</span>: <span class="st">&quot;The Set of Gauntlets 'Paurnen'&quot;</span>}</a>
-<a class="sourceLine" id="cb11-25" title="25">{<span class="st">'description'</span>: <span class="st">'A set of handgear, freezing with unnatural cold.</span><span class="ch">\n</span><span class="st">'</span>,</a>
-<a class="sourceLine" id="cb11-26" title="26"><span class="st">'name'</span>: <span class="st">&quot;The Set of Gauntlets 'Paurnimmen'&quot;</span>}</a></code></pre></div>
+<a class="sourceLine" id="cb11-21" title="21">{<span class="st">&#39;description&#39;</span>: <span class="st">&#39;A set of handgear with sparks that crackle across its knuckleguards.</span><span class="ch">\n</span><span class="st">&#39;</span>,</a>
+<a class="sourceLine" id="cb11-22" title="22"><span class="st">&#39;name&#39;</span>: <span class="st">&quot;The Set of Gauntlets &#39;Pauraegen&#39;&quot;</span>}</a>
+<a class="sourceLine" id="cb11-23" title="23">{<span class="st">&#39;description&#39;</span>: <span class="st">&#39;A set of gauntlets that gives off a foul, acrid odour yet remains untarnished.</span><span class="ch">\n</span><span class="st">&#39;</span>,</a>
+<a class="sourceLine" id="cb11-24" title="24"><span class="st">&#39;name&#39;</span>: <span class="st">&quot;The Set of Gauntlets &#39;Paurnen&#39;&quot;</span>}</a>
+<a class="sourceLine" id="cb11-25" title="25">{<span class="st">&#39;description&#39;</span>: <span class="st">&#39;A set of handgear, freezing with unnatural cold.</span><span class="ch">\n</span><span class="st">&#39;</span>,</a>
+<a class="sourceLine" id="cb11-26" title="26"><span class="st">&#39;name&#39;</span>: <span class="st">&quot;The Set of Gauntlets &#39;Paurnimmen&#39;&quot;</span>}</a></code></pre></div>
 <p>PyYAML allows you to construct a Python object of any type.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" title="1"><span class="op">&gt;&gt;&gt;</span> yaml.load(<span class="st">&quot;&quot;&quot;</span></a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="st">... none: [~, null]</span></a>
@@ -449,9 +450,9 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb12-7" title="7"><span class="st">... dict: {hp: 13, sp: 5}</span></a>
 <a class="sourceLine" id="cb12-8" title="8"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb12-9" title="9"></a>
-<a class="sourceLine" id="cb12-10" title="10">{<span class="st">'none'</span>: [<span class="va">None</span>, <span class="va">None</span>], <span class="st">'int'</span>: <span class="dv">42</span>, <span class="st">'float'</span>: <span class="fl">3.1415899999999999</span>,</a>
-<a class="sourceLine" id="cb12-11" title="11"><span class="st">'list'</span>: [<span class="st">'LITE'</span>, <span class="st">'RES_ACID'</span>, <span class="st">'SUS_DEXT'</span>], <span class="st">'dict'</span>: {<span class="st">'hp'</span>: <span class="dv">13</span>, <span class="st">'sp'</span>: <span class="dv">5</span>},</a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="st">'bool'</span>: [<span class="va">True</span>, <span class="va">False</span>, <span class="va">True</span>, <span class="va">False</span>]}</a></code></pre></div>
+<a class="sourceLine" id="cb12-10" title="10">{<span class="st">&#39;none&#39;</span>: [<span class="va">None</span>, <span class="va">None</span>], <span class="st">&#39;int&#39;</span>: <span class="dv">42</span>, <span class="st">&#39;float&#39;</span>: <span class="fl">3.1415899999999999</span>,</a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="st">&#39;list&#39;</span>: [<span class="st">&#39;LITE&#39;</span>, <span class="st">&#39;RES_ACID&#39;</span>, <span class="st">&#39;SUS_DEXT&#39;</span>], <span class="st">&#39;dict&#39;</span>: {<span class="st">&#39;hp&#39;</span>: <span class="dv">13</span>, <span class="st">&#39;sp&#39;</span>: <span class="dv">5</span>},</a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="st">&#39;bool&#39;</span>: [<span class="va">True</span>, <span class="va">False</span>, <span class="va">True</span>, <span class="va">False</span>]}</a></code></pre></div>
 <p>Even instances of Python classes can be constructed using the <code>!!python/object</code> tag.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Hero:</a>
 <a class="sourceLine" id="cb13-2" title="2">...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, hp, sp):</a>
@@ -469,20 +470,20 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb13-14" title="14"><span class="st">... sp: 0</span></a>
 <a class="sourceLine" id="cb13-15" title="15"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb13-16" title="16"></a>
-<a class="sourceLine" id="cb13-17" title="17">Hero(name<span class="op">=</span><span class="st">'Welthyr Syxgon'</span>, hp<span class="op">=</span><span class="dv">1200</span>, sp<span class="op">=</span><span class="dv">0</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb13-17" title="17">Hero(name<span class="op">=</span><span class="st">&#39;Welthyr Syxgon&#39;</span>, hp<span class="op">=</span><span class="dv">1200</span>, sp<span class="op">=</span><span class="dv">0</span>)</a></code></pre></div>
 <p>Note that the ability to construct an arbitrary Python object may be dangerous if you receive a YAML document from an untrusted source such as the Internet. The function <code>yaml.safe_load</code> limits this ability to simple Python objects like integers or lists.</p>
 <p>A python object can be marked as safe and thus be recognized by <code>yaml.safe_load</code>. To do this, derive it from <code>yaml.YAMLObject</code> (as explained in section <em>Constructors, representers, resolvers</em>) and explicitly set its class property <code>yaml_loader</code> to <code>yaml.SafeLoader</code>.</p>
 <h3 id="dumping-yaml">Dumping YAML</h3>
 <p>The <code>yaml.dump</code> function accepts a Python object and produces a YAML document.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'name'</span>: <span class="st">'Silenthand Olleander'</span>, <span class="st">'race'</span>: <span class="st">'Human'</span>,</a>
-<a class="sourceLine" id="cb14-2" title="2">... <span class="st">'traits'</span>: [<span class="st">'ONE_HAND'</span>, <span class="st">'ONE_EYE'</span>]})</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">&#39;name&#39;</span>: <span class="st">&#39;Silenthand Olleander&#39;</span>, <span class="st">&#39;race&#39;</span>: <span class="st">&#39;Human&#39;</span>,</a>
+<a class="sourceLine" id="cb14-2" title="2">... <span class="st">&#39;traits&#39;</span>: [<span class="st">&#39;ONE_HAND&#39;</span>, <span class="st">&#39;ONE_EYE&#39;</span>]})</a>
 <a class="sourceLine" id="cb14-3" title="3"></a>
 <a class="sourceLine" id="cb14-4" title="4">name: Silenthand Olleander</a>
 <a class="sourceLine" id="cb14-5" title="5">race: Human</a>
 <a class="sourceLine" id="cb14-6" title="6">traits: [ONE_HAND, ONE_EYE]</a></code></pre></div>
 <p><code>yaml.dump</code> accepts the second optional argument, which must be an open text or binary file. In this case, <code>yaml.dump</code> will write the produced YAML document into the file. Otherwise, <code>yaml.dump</code> returns the produced document.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1"><span class="op">&gt;&gt;&gt;</span> stream <span class="op">=</span> <span class="bu">file</span>(<span class="st">'document.yaml'</span>, <span class="st">'w'</span>)</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="op">&gt;&gt;&gt;</span> yaml.dump(data, stream)    <span class="co"># Write a YAML representation of data to 'document.yaml'.</span></a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" title="1"><span class="op">&gt;&gt;&gt;</span> stream <span class="op">=</span> <span class="bu">file</span>(<span class="st">&#39;document.yaml&#39;</span>, <span class="st">&#39;w&#39;</span>)</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="op">&gt;&gt;&gt;</span> yaml.dump(data, stream)    <span class="co"># Write a YAML representation of data to &#39;document.yaml&#39;.</span></a>
 <a class="sourceLine" id="cb15-3" title="3"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump(data)      <span class="co"># Output the document to the screen.</span></a></code></pre></div>
 <p>If you need to dump several YAML documents to a single stream, use the function <code>yaml.dump_all</code>. <code>yaml.dump_all</code> accepts a list or a generator producing</p>
 <p>Python objects to be serialized into a YAML document. The second optional argument is an open file.</p>
@@ -535,12 +536,12 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb18-26" title="26"><span class="op">-</span> <span class="dv">3</span></a>
 <a class="sourceLine" id="cb18-27" title="27"><span class="op">-</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb18-28" title="28"></a>
-<a class="sourceLine" id="cb18-29" title="29"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump(<span class="bu">range</span>(<span class="dv">5</span>), default_flow_style<span class="op">=</span><span class="va">True</span>, default_style<span class="op">=</span><span class="st">'&quot;'</span>)</a>
+<a class="sourceLine" id="cb18-29" title="29"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump(<span class="bu">range</span>(<span class="dv">5</span>), default_flow_style<span class="op">=</span><span class="va">True</span>, default_style<span class="op">=</span><span class="st">&#39;&quot;&#39;</span>)</a>
 <a class="sourceLine" id="cb18-30" title="30">[<span class="op">!!</span><span class="bu">int</span> <span class="st">&quot;0&quot;</span>, <span class="op">!!</span><span class="bu">int</span> <span class="st">&quot;1&quot;</span>, <span class="op">!!</span><span class="bu">int</span> <span class="st">&quot;2&quot;</span>, <span class="op">!!</span><span class="bu">int</span> <span class="st">&quot;3&quot;</span>, <span class="op">!!</span><span class="bu">int</span> <span class="st">&quot;4&quot;</span>]</a></code></pre></div>
 <h3 id="constructors-representers-resolvers">Constructors, representers, resolvers</h3>
 <p>You may define your own application-specific tags. The easiest way to do it is to define a subclass of <code>yaml.YAMLObject</code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> Monster(yaml.YAMLObject):</a>
-<a class="sourceLine" id="cb19-2" title="2">...     yaml_tag <span class="op">=</span> <span class="st">u'!Monster'</span></a>
+<a class="sourceLine" id="cb19-2" title="2">...     yaml_tag <span class="op">=</span> <span class="st">u&#39;!Monster&#39;</span></a>
 <a class="sourceLine" id="cb19-3" title="3">...     <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, hp, ac, attacks):</a>
 <a class="sourceLine" id="cb19-4" title="4">...         <span class="va">self</span>.name <span class="op">=</span> name</a>
 <a class="sourceLine" id="cb19-5" title="5">...         <span class="va">self</span>.hp <span class="op">=</span> hp</a>
@@ -558,10 +559,10 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb20-6" title="6"><span class="st">... attacks: [BITE, HURT]</span></a>
 <a class="sourceLine" id="cb20-7" title="7"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb20-8" title="8"></a>
-<a class="sourceLine" id="cb20-9" title="9">Monster(name<span class="op">=</span><span class="st">'Cave spider'</span>, hp<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">6</span>], ac<span class="op">=</span><span class="dv">16</span>, attacks<span class="op">=</span>[<span class="st">'BITE'</span>, <span class="st">'HURT'</span>])</a>
+<a class="sourceLine" id="cb20-9" title="9">Monster(name<span class="op">=</span><span class="st">&#39;Cave spider&#39;</span>, hp<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">6</span>], ac<span class="op">=</span><span class="dv">16</span>, attacks<span class="op">=</span>[<span class="st">&#39;BITE&#39;</span>, <span class="st">&#39;HURT&#39;</span>])</a>
 <a class="sourceLine" id="cb20-10" title="10"></a>
 <a class="sourceLine" id="cb20-11" title="11"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump(Monster(</a>
-<a class="sourceLine" id="cb20-12" title="12">...     name<span class="op">=</span><span class="st">'Cave lizard'</span>, hp<span class="op">=</span>[<span class="dv">3</span>,<span class="dv">6</span>], ac<span class="op">=</span><span class="dv">16</span>, attacks<span class="op">=</span>[<span class="st">'BITE'</span>,<span class="st">'HURT'</span>]))</a>
+<a class="sourceLine" id="cb20-12" title="12">...     name<span class="op">=</span><span class="st">&#39;Cave lizard&#39;</span>, hp<span class="op">=</span>[<span class="dv">3</span>,<span class="dv">6</span>], ac<span class="op">=</span><span class="dv">16</span>, attacks<span class="op">=</span>[<span class="st">&#39;BITE&#39;</span>,<span class="st">&#39;HURT&#39;</span>]))</a>
 <a class="sourceLine" id="cb20-13" title="13"></a>
 <a class="sourceLine" id="cb20-14" title="14"><span class="op">!</span>Monster</a>
 <a class="sourceLine" id="cb20-15" title="15">ac: <span class="dv">16</span></a>
@@ -589,31 +590,31 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb23-3" title="3">3d6</a></code></pre></div>
 <p>First we define a representer that converts a dice object to a scalar node with the tag <code>!dice</code>, then we register it.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> dice_representer(dumper, data):</a>
-<a class="sourceLine" id="cb24-2" title="2">...     <span class="cf">return</span> dumper.represent_scalar(<span class="st">u'!dice'</span>, <span class="st">u'</span><span class="sc">%s</span><span class="st">d</span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> data)</a>
+<a class="sourceLine" id="cb24-2" title="2">...     <span class="cf">return</span> dumper.represent_scalar(<span class="st">u&#39;!dice&#39;</span>, <span class="st">u&#39;</span><span class="sc">%s</span><span class="st">d</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> data)</a>
 <a class="sourceLine" id="cb24-3" title="3"></a>
 <a class="sourceLine" id="cb24-4" title="4"><span class="op">&gt;&gt;&gt;</span> yaml.add_representer(Dice, dice_representer)</a></code></pre></div>
 <p>Now you may dump an instance of the <code>Dice</code> object:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'gold'</span>: Dice(<span class="dv">10</span>,<span class="dv">6</span>)})</a>
-<a class="sourceLine" id="cb25-2" title="2">{gold: <span class="op">!</span>dice <span class="st">'10d6'</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">&#39;gold&#39;</span>: Dice(<span class="dv">10</span>,<span class="dv">6</span>)})</a>
+<a class="sourceLine" id="cb25-2" title="2">{gold: <span class="op">!</span>dice <span class="st">&#39;10d6&#39;</span>}</a></code></pre></div>
 <p>Let us add the code to construct a Dice object:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb26-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> dice_constructor(loader, node):</a>
 <a class="sourceLine" id="cb26-2" title="2">...     value <span class="op">=</span> loader.construct_scalar(node)</a>
-<a class="sourceLine" id="cb26-3" title="3">...     a, b <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, value.split(<span class="st">'d'</span>))</a>
+<a class="sourceLine" id="cb26-3" title="3">...     a, b <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, value.split(<span class="st">&#39;d&#39;</span>))</a>
 <a class="sourceLine" id="cb26-4" title="4">...     <span class="cf">return</span> Dice(a, b)</a>
 <a class="sourceLine" id="cb26-5" title="5"></a>
-<a class="sourceLine" id="cb26-6" title="6"><span class="op">&gt;&gt;&gt;</span> yaml.add_constructor(<span class="st">u'!dice'</span>, dice_constructor)</a></code></pre></div>
+<a class="sourceLine" id="cb26-6" title="6"><span class="op">&gt;&gt;&gt;</span> yaml.add_constructor(<span class="st">u&#39;!dice&#39;</span>, dice_constructor)</a></code></pre></div>
 <p>Then you may load a <code>Dice</code> object as well:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.load(<span class="st">&quot;&quot;&quot;</span></a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="st">... initial hit points: !dice 8d4</span></a>
 <a class="sourceLine" id="cb27-3" title="3"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb27-4" title="4"></a>
-<a class="sourceLine" id="cb27-5" title="5">{<span class="st">'initial hit points'</span>: Dice(<span class="dv">8</span>,<span class="dv">4</span>)}</a></code></pre></div>
+<a class="sourceLine" id="cb27-5" title="5">{<span class="st">&#39;initial hit points&#39;</span>: Dice(<span class="dv">8</span>,<span class="dv">4</span>)}</a></code></pre></div>
 <p>You might not want to specify the tag <code>!dice</code> everywhere. There is a way to teach PyYAML that any untagged plain scalar which looks like XdY has the implicit tag <code>!dice</code>. Use <code>add_implicit_resolver</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> re</a>
-<a class="sourceLine" id="cb28-2" title="2"><span class="op">&gt;&gt;&gt;</span> pattern <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r'^\d+d\d+$'</span>)</a>
-<a class="sourceLine" id="cb28-3" title="3"><span class="op">&gt;&gt;&gt;</span> yaml.add_implicit_resolver(<span class="st">u'!dice'</span>, pattern)</a></code></pre></div>
+<a class="sourceLine" id="cb28-2" title="2"><span class="op">&gt;&gt;&gt;</span> pattern <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&#39;^\d+d\d+$&#39;</span>)</a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="op">&gt;&gt;&gt;</span> yaml.add_implicit_resolver(<span class="st">u&#39;!dice&#39;</span>, pattern)</a></code></pre></div>
 <p>Now you don’t have to specify the tag to define a <code>Dice</code> object:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">'treasure'</span>: Dice(<span class="dv">10</span>,<span class="dv">20</span>)})</a>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.dump({<span class="st">&#39;treasure&#39;</span>: Dice(<span class="dv">10</span>,<span class="dv">20</span>)})</a>
 <a class="sourceLine" id="cb29-2" title="2"></a>
 <a class="sourceLine" id="cb29-3" title="3">{treasure: 10d20}</a>
 <a class="sourceLine" id="cb29-4" title="4"></a>
@@ -621,7 +622,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb29-6" title="6"><span class="st">... damage: 5d10</span></a>
 <a class="sourceLine" id="cb29-7" title="7"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb29-8" title="8"></a>
-<a class="sourceLine" id="cb29-9" title="9">{<span class="st">'damage'</span>: Dice(<span class="dv">5</span>,<span class="dv">10</span>)}</a></code></pre></div>
+<a class="sourceLine" id="cb29-9" title="9">{<span class="st">&#39;damage&#39;</span>: Dice(<span class="dv">5</span>,<span class="dv">10</span>)}</a></code></pre></div>
 <h2 id="yaml-syntax">YAML syntax</h2>
 <p>A good introduction to the YAML syntax is <a href="http://yaml.org/spec/1.1/#id857168">Chapter 2 of the YAML specification</a>.</p>
 <p>You may also check <a href="https://yaml.org/YAML_for_ruby.html">the YAML cookbook</a>. Note that it is focused on a Ruby implementation and uses the old YAML 1.0 syntax.</p>
@@ -650,17 +651,17 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb32-9" title="9"><span class="kw">-</span> Basic</a>
 <a class="sourceLine" id="cb32-10" title="10"><span class="ot">---</span></a>
 <a class="sourceLine" id="cb32-11" title="11"><span class="kw">-</span> C</a>
-<a class="sourceLine" id="cb32-12" title="12"><span class="kw">-</span> C<span class="co">#    # Note that comments are denoted with ' #' (space then #).</span></a>
+<a class="sourceLine" id="cb32-12" title="12"><span class="kw">-</span> C<span class="co">#    # Note that comments are denoted with &#39; #&#39; (space then #).</span></a>
 <a class="sourceLine" id="cb32-13" title="13"><span class="kw">-</span> C++</a>
 <a class="sourceLine" id="cb32-14" title="14"><span class="kw">-</span> Cold Fusion</a></code></pre></div>
 <h3 id="block-sequences">Block sequences</h3>
 <p>In the block context, sequence entries are denoted by <code>-</code> (dash then space):</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># YAML</span></a>
-<a class="sourceLine" id="cb33-2" title="2"><span class="kw">-</span> The Dagger <span class="st">'Narthanc'</span></a>
-<a class="sourceLine" id="cb33-3" title="3"><span class="kw">-</span> The Dagger <span class="st">'Nimthanc'</span></a>
-<a class="sourceLine" id="cb33-4" title="4"><span class="kw">-</span> The Dagger <span class="st">'Dethanc'</span></a></code></pre></div>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw">-</span> The Dagger <span class="st">&#39;Narthanc&#39;</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="kw">-</span> The Dagger <span class="st">&#39;Nimthanc&#39;</span></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="kw">-</span> The Dagger <span class="st">&#39;Dethanc&#39;</span></a></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb34-2" title="2">[<span class="st">&quot;The Dagger 'Narthanc'&quot;</span>, <span class="st">&quot;The Dagger 'Nimthanc'&quot;</span>, <span class="st">&quot;The Dagger 'Dethanc'&quot;</span>]</a></code></pre></div>
+<a class="sourceLine" id="cb34-2" title="2">[<span class="st">&quot;The Dagger &#39;Narthanc&#39;&quot;</span>, <span class="st">&quot;The Dagger &#39;Nimthanc&#39;&quot;</span>, <span class="st">&quot;The Dagger &#39;Dethanc&#39;&quot;</span>]</a></code></pre></div>
 <p>Block sequences can be nested:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb35-2" title="2"><span class="kw">-</span></a>
@@ -675,7 +676,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb35-11" title="11">  <span class="kw">-</span> GNU Hurd</a>
 <a class="sourceLine" id="cb35-12" title="12">  <span class="kw">-</span> Linux</a></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb36-2" title="2">[[<span class="st">'HTML'</span>, <span class="st">'LaTeX'</span>, <span class="st">'SGML'</span>, <span class="st">'VRML'</span>, <span class="st">'XML'</span>, <span class="st">'YAML'</span>], [<span class="st">'BSD'</span>, <span class="st">'GNU Hurd'</span>, <span class="st">'Linux'</span>]]</a></code></pre></div>
+<a class="sourceLine" id="cb36-2" title="2">[[<span class="st">&#39;HTML&#39;</span>, <span class="st">&#39;LaTeX&#39;</span>, <span class="st">&#39;SGML&#39;</span>, <span class="st">&#39;VRML&#39;</span>, <span class="st">&#39;XML&#39;</span>, <span class="st">&#39;YAML&#39;</span>], [<span class="st">&#39;BSD&#39;</span>, <span class="st">&#39;GNU Hurd&#39;</span>, <span class="st">&#39;Linux&#39;</span>]]</a></code></pre></div>
 <p>It’s not necessary to start a nested sequence with a new line:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb37-2" title="2"><span class="kw">-</span> <span class="fl">1.1</span></a>
@@ -697,8 +698,8 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb39-8" title="8"><span class="kw">-</span> Ring of Resist Cold</a>
 <a class="sourceLine" id="cb39-9" title="9"><span class="kw">-</span> Ring of Resist Poison</a></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb40-2" title="2">{<span class="st">'right hand'</span>: [<span class="st">'Ring of Resist Fire'</span>, <span class="st">'Ring of Resist Cold'</span>, <span class="st">'Ring of Resist Poison'</span>],</a>
-<a class="sourceLine" id="cb40-3" title="3"><span class="st">'left hand'</span>: [<span class="st">'Ring of Teleportation'</span>, <span class="st">'Ring of Speed'</span>]}</a></code></pre></div>
+<a class="sourceLine" id="cb40-2" title="2">{<span class="st">&#39;right hand&#39;</span>: [<span class="st">&#39;Ring of Resist Fire&#39;</span>, <span class="st">&#39;Ring of Resist Cold&#39;</span>, <span class="st">&#39;Ring of Resist Poison&#39;</span>],</a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="st">&#39;left hand&#39;</span>: [<span class="st">&#39;Ring of Teleportation&#39;</span>, <span class="st">&#39;Ring of Speed&#39;</span>]}</a></code></pre></div>
 <h3 id="block-mappings">Block mappings</h3>
 <p>In the block context, keys and values of mappings are separated by <code>:</code> (colon then space):</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># YAML</span></a>
@@ -708,7 +709,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb41-5" title="5"><span class="fu">plus to-dam:</span><span class="at"> </span><span class="dv">16</span></a>
 <a class="sourceLine" id="cb41-6" title="6"><span class="fu">plus to-ac:</span><span class="at"> </span><span class="dv">0</span></a></code></pre></div>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb42-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb42-2" title="2">{<span class="st">'plus to-hit'</span>: <span class="dv">12</span>, <span class="st">'base damage'</span>: [<span class="dv">4</span>, <span class="dv">4</span>], <span class="st">'base armor class'</span>: <span class="dv">0</span>, <span class="st">'plus to-ac'</span>: <span class="dv">0</span>, <span class="st">'plus to-dam'</span>: <span class="dv">16</span>}</a></code></pre></div>
+<a class="sourceLine" id="cb42-2" title="2">{<span class="st">&#39;plus to-hit&#39;</span>: <span class="dv">12</span>, <span class="st">&#39;base damage&#39;</span>: [<span class="dv">4</span>, <span class="dv">4</span>], <span class="st">&#39;base armor class&#39;</span>: <span class="dv">0</span>, <span class="st">&#39;plus to-ac&#39;</span>: <span class="dv">0</span>, <span class="st">&#39;plus to-dam&#39;</span>: <span class="dv">16</span>}</a></code></pre></div>
 <p>Complex keys are denoted with <code>?</code> (question mark then space):</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb43-2" title="2"><span class="kw">?</span> <span class="dt">!!python/tuple</span> <span class="kw">[</span><span class="dv">0</span><span class="kw">,</span><span class="dv">0</span><span class="kw">]</span></a>
@@ -720,7 +721,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb43-8" title="8"><span class="kw">?</span> <span class="dt">!!python/tuple</span> <span class="kw">[</span><span class="dv">1</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></a>
 <a class="sourceLine" id="cb43-9" title="9"><span class="fu">:</span><span class="at"> The Dragon</span></a></code></pre></div>
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb44-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb44-2" title="2">{(<span class="dv">0</span>, <span class="dv">1</span>): <span class="st">'Treasure'</span>, (<span class="dv">1</span>, <span class="dv">0</span>): <span class="st">'Treasure'</span>, (<span class="dv">0</span>, <span class="dv">0</span>): <span class="st">'The Hero'</span>, (<span class="dv">1</span>, <span class="dv">1</span>): <span class="st">'The Dragon'</span>}</a></code></pre></div>
+<a class="sourceLine" id="cb44-2" title="2">{(<span class="dv">0</span>, <span class="dv">1</span>): <span class="st">&#39;Treasure&#39;</span>, (<span class="dv">1</span>, <span class="dv">0</span>): <span class="st">&#39;Treasure&#39;</span>, (<span class="dv">0</span>, <span class="dv">0</span>): <span class="st">&#39;The Hero&#39;</span>, (<span class="dv">1</span>, <span class="dv">1</span>): <span class="st">&#39;The Dragon&#39;</span>}</a></code></pre></div>
 <p>Block mapping can be nested:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb45-2" title="2"><span class="fu">hero:</span></a>
@@ -732,7 +733,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb45-8" title="8">  <span class="fu">sp:</span><span class="at"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb45-9" title="9">  <span class="fu">level:</span><span class="at"> </span><span class="dv">2</span></a></code></pre></div>
 <div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb46-2" title="2">{<span class="st">'hero'</span>: {<span class="st">'hp'</span>: <span class="dv">34</span>, <span class="st">'sp'</span>: <span class="dv">8</span>, <span class="st">'level'</span>: <span class="dv">4</span>}, <span class="st">'orc'</span>: {<span class="st">'hp'</span>: <span class="dv">12</span>, <span class="st">'sp'</span>: <span class="dv">0</span>, <span class="st">'level'</span>: <span class="dv">2</span>}}</a></code></pre></div>
+<a class="sourceLine" id="cb46-2" title="2">{<span class="st">&#39;hero&#39;</span>: {<span class="st">&#39;hp&#39;</span>: <span class="dv">34</span>, <span class="st">&#39;sp&#39;</span>: <span class="dv">8</span>, <span class="st">&#39;level&#39;</span>: <span class="dv">4</span>}, <span class="st">&#39;orc&#39;</span>: {<span class="st">&#39;hp&#39;</span>: <span class="dv">12</span>, <span class="st">&#39;sp&#39;</span>: <span class="dv">0</span>, <span class="st">&#39;level&#39;</span>: <span class="dv">2</span>}}</a></code></pre></div>
 <p>A block mapping may be nested in a block sequence:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb47-2" title="2"><span class="kw">-</span> <span class="fu">name:</span><span class="at"> PyYAML</span></a>
@@ -744,19 +745,19 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb47-8" title="8">  <span class="fu">license:</span><span class="at"> BSD</span></a>
 <a class="sourceLine" id="cb47-9" title="9">  <span class="fu">language:</span><span class="at"> Python</span></a></code></pre></div>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb48-2" title="2">[{<span class="st">'status'</span>: <span class="dv">4</span>, <span class="st">'language'</span>: <span class="st">'Python'</span>, <span class="st">'name'</span>: <span class="st">'PyYAML'</span>, <span class="st">'license'</span>: <span class="st">'MIT'</span>},</a>
-<a class="sourceLine" id="cb48-3" title="3">{<span class="st">'status'</span>: <span class="dv">5</span>, <span class="st">'license'</span>: <span class="st">'BSD'</span>, <span class="st">'name'</span>: <span class="st">'PySyck'</span>, <span class="st">'language'</span>: <span class="st">'Python'</span>}]</a></code></pre></div>
+<a class="sourceLine" id="cb48-2" title="2">[{<span class="st">&#39;status&#39;</span>: <span class="dv">4</span>, <span class="st">&#39;language&#39;</span>: <span class="st">&#39;Python&#39;</span>, <span class="st">&#39;name&#39;</span>: <span class="st">&#39;PyYAML&#39;</span>, <span class="st">&#39;license&#39;</span>: <span class="st">&#39;MIT&#39;</span>},</a>
+<a class="sourceLine" id="cb48-3" title="3">{<span class="st">&#39;status&#39;</span>: <span class="dv">5</span>, <span class="st">&#39;license&#39;</span>: <span class="st">&#39;BSD&#39;</span>, <span class="st">&#39;name&#39;</span>: <span class="st">&#39;PySyck&#39;</span>, <span class="st">&#39;language&#39;</span>: <span class="st">&#39;Python&#39;</span>}]</a></code></pre></div>
 <h3 id="flow-collections">Flow collections</h3>
 <p>The syntax of flow collections in YAML is very close to the syntax of list and dictionary constructors in Python:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb49-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb49-2" title="2"><span class="kw">{</span> <span class="fu">str:</span><span class="at"> </span><span class="kw">[</span><span class="dv">15</span><span class="kw">,</span> <span class="dv">17</span><span class="kw">],</span> <span class="fu">con:</span><span class="at"> </span><span class="kw">[</span><span class="dv">16</span><span class="kw">,</span> <span class="dv">16</span><span class="kw">],</span> <span class="fu">dex:</span><span class="at"> </span><span class="kw">[</span><span class="dv">17</span><span class="kw">,</span> <span class="dv">18</span><span class="kw">],</span> <span class="fu">wis:</span><span class="at"> </span><span class="kw">[</span><span class="dv">16</span><span class="kw">,</span> <span class="dv">16</span><span class="kw">],</span> <span class="fu">int:</span><span class="at"> </span><span class="kw">[</span><span class="dv">10</span><span class="kw">,</span> <span class="dv">13</span><span class="kw">],</span> <span class="fu">chr:</span><span class="at"> </span><span class="kw">[</span><span class="dv">5</span><span class="kw">,</span> <span class="dv">8</span><span class="kw">]</span><span class="at"> </span><span class="kw">}</span></a></code></pre></div>
 <div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb50-2" title="2">{<span class="st">'dex'</span>: [<span class="dv">17</span>, <span class="dv">18</span>], <span class="st">'int'</span>: [<span class="dv">10</span>, <span class="dv">13</span>], <span class="st">'chr'</span>: [<span class="dv">5</span>, <span class="dv">8</span>], <span class="st">'wis'</span>: [<span class="dv">16</span>, <span class="dv">16</span>], <span class="st">'str'</span>: [<span class="dv">15</span>, <span class="dv">17</span>], <span class="st">'con'</span>: [<span class="dv">16</span>, <span class="dv">16</span>]}</a></code></pre></div>
+<a class="sourceLine" id="cb50-2" title="2">{<span class="st">&#39;dex&#39;</span>: [<span class="dv">17</span>, <span class="dv">18</span>], <span class="st">&#39;int&#39;</span>: [<span class="dv">10</span>, <span class="dv">13</span>], <span class="st">&#39;chr&#39;</span>: [<span class="dv">5</span>, <span class="dv">8</span>], <span class="st">&#39;wis&#39;</span>: [<span class="dv">16</span>, <span class="dv">16</span>], <span class="st">&#39;str&#39;</span>: [<span class="dv">15</span>, <span class="dv">17</span>], <span class="st">&#39;con&#39;</span>: [<span class="dv">16</span>, <span class="dv">16</span>]}</a></code></pre></div>
 <h3 id="scalars">Scalars</h3>
 <p>There are 5 styles of scalars in YAML: plain, single-quoted, double-quoted, literal, and folded:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># YAML</span></a>
 <a class="sourceLine" id="cb51-2" title="2"><span class="fu">plain:</span><span class="at"> Scroll of Remove Curse</span></a>
-<a class="sourceLine" id="cb51-3" title="3"><span class="fu">single-quoted:</span><span class="at"> </span><span class="st">'EASY_KNOW'</span></a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="fu">single-quoted:</span><span class="at"> </span><span class="st">&#39;EASY_KNOW&#39;</span></a>
 <a class="sourceLine" id="cb51-4" title="4"><span class="fu">double-quoted:</span><span class="at"> </span><span class="st">&quot;?&quot;</span></a>
 <a class="sourceLine" id="cb51-5" title="5"><span class="fu">literal:</span> <span class="st">|</span>    <span class="co"># Borrowed from http://www.kersbergen.com/flump/religion.html</span></a>
 <a class="sourceLine" id="cb51-6" title="6">  by hjw              ___</a>
@@ -770,20 +771,20 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb51-14" title="14">  It removes all ordinary curses from all equipped items.</a>
 <a class="sourceLine" id="cb51-15" title="15">  Heavy or permanent curses are unaffected.</a></code></pre></div>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1"><span class="co"># Python</span></a>
-<a class="sourceLine" id="cb52-2" title="2">{<span class="st">'plain'</span>: <span class="st">'Scroll of Remove Curse'</span>,</a>
-<a class="sourceLine" id="cb52-3" title="3"><span class="st">'literal'</span>:</a>
-<a class="sourceLine" id="cb52-4" title="4">    <span class="st">'by hjw              ___</span><span class="ch">\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-5" title="5">    <span class="st">'   __              /.-.</span><span class="ch">\\\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-6" title="6">    <span class="st">'  /  )_____________</span><span class="ch">\\\\</span><span class="st">  Y</span><span class="ch">\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-7" title="7">    <span class="st">' /_ /=== == === === =</span><span class="ch">\\</span><span class="st"> _</span><span class="ch">\\</span><span class="st">_</span><span class="ch">\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-8" title="8">    <span class="st">'( /)=== == === === == Y   </span><span class="ch">\\\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-9" title="9">    <span class="st">' `-------------------(  o  )</span><span class="ch">\n</span><span class="st">'</span></a>
-<a class="sourceLine" id="cb52-10" title="10">    <span class="st">'                      </span><span class="ch">\\</span><span class="st">___/</span><span class="ch">\n</span><span class="st">'</span>,</a>
-<a class="sourceLine" id="cb52-11" title="11"><span class="st">'single-quoted'</span>: <span class="st">'EASY_KNOW'</span>,</a>
-<a class="sourceLine" id="cb52-12" title="12"><span class="st">'double-quoted'</span>: <span class="st">'?'</span>,</a>
-<a class="sourceLine" id="cb52-13" title="13"><span class="st">'folded'</span>: <span class="st">'It removes all ordinary curses from all equipped items. Heavy or permanent curses are unaffected.</span><span class="ch">\n</span><span class="st">'</span>}</a></code></pre></div>
+<a class="sourceLine" id="cb52-2" title="2">{<span class="st">&#39;plain&#39;</span>: <span class="st">&#39;Scroll of Remove Curse&#39;</span>,</a>
+<a class="sourceLine" id="cb52-3" title="3"><span class="st">&#39;literal&#39;</span>:</a>
+<a class="sourceLine" id="cb52-4" title="4">    <span class="st">&#39;by hjw              ___</span><span class="ch">\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-5" title="5">    <span class="st">&#39;   __              /.-.</span><span class="ch">\\\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-6" title="6">    <span class="st">&#39;  /  )_____________</span><span class="ch">\\\\</span><span class="st">  Y</span><span class="ch">\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-7" title="7">    <span class="st">&#39; /_ /=== == === === =</span><span class="ch">\\</span><span class="st"> _</span><span class="ch">\\</span><span class="st">_</span><span class="ch">\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-8" title="8">    <span class="st">&#39;( /)=== == === === == Y   </span><span class="ch">\\\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-9" title="9">    <span class="st">&#39; `-------------------(  o  )</span><span class="ch">\n</span><span class="st">&#39;</span></a>
+<a class="sourceLine" id="cb52-10" title="10">    <span class="st">&#39;                      </span><span class="ch">\\</span><span class="st">___/</span><span class="ch">\n</span><span class="st">&#39;</span>,</a>
+<a class="sourceLine" id="cb52-11" title="11"><span class="st">&#39;single-quoted&#39;</span>: <span class="st">&#39;EASY_KNOW&#39;</span>,</a>
+<a class="sourceLine" id="cb52-12" title="12"><span class="st">&#39;double-quoted&#39;</span>: <span class="st">&#39;?&#39;</span>,</a>
+<a class="sourceLine" id="cb52-13" title="13"><span class="st">&#39;folded&#39;</span>: <span class="st">&#39;It removes all ordinary curses from all equipped items. Heavy or permanent curses are unaffected.</span><span class="ch">\n</span><span class="st">&#39;</span>}</a></code></pre></div>
 <p>Each style has its own quirks. A plain scalar does not use indicators to denote its start and end, therefore it’s the most restricted style. Its natural applications are names of attributes and parameters.</p>
-<p>Using single-quoted scalars, you may express any value that does not contain special characters. No escaping occurs for single quoted scalars except that a pair of adjacent quotes <code>''</code> is replaced with a lone single quote <code>'</code>.</p>
+<p>Using single-quoted scalars, you may express any value that does not contain special characters. No escaping occurs for single quoted scalars except that a pair of adjacent quotes <code>&#39;&#39;</code> is replaced with a lone single quote <code>&#39;</code>.</p>
 <p>Double-quoted is the most powerful style and the only style that can express any scalar value. Double-quoted scalars allow <em>escaping</em>. Using escaping sequences <code>\x*</code> and <code>\u***</code>, you may express any ASCII or Unicode character.</p>
 <p>There are two kind of block scalar styles: <em>literal</em> and <em>folded</em>. The literal style is the most suitable style for large block of text such as source code. The folded style is similar to the literal style, but two adjacent non-empty lines are joined to a single line separated by a space character.</p>
 <h3 id="aliases">Aliases</h3>
@@ -804,12 +805,12 @@ b: {c: 3, d: 4}</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb55-1" title="1"><span class="fu">boolean:</span><span class="at"> </span><span class="ch">true</span></a>
 <a class="sourceLine" id="cb55-2" title="2"><span class="fu">integer:</span><span class="at"> </span><span class="dv">3</span></a>
 <a class="sourceLine" id="cb55-3" title="3"><span class="fu">float:</span><span class="at"> </span><span class="fl">3.14</span></a></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb56-1" title="1">{<span class="st">'boolean'</span>: <span class="va">True</span>, <span class="st">'integer'</span>: <span class="dv">3</span>, <span class="st">'float'</span>: <span class="fl">3.14</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb56-1" title="1">{<span class="st">&#39;boolean&#39;</span>: <span class="va">True</span>, <span class="st">&#39;integer&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;float&#39;</span>: <span class="fl">3.14</span>}</a></code></pre></div>
 <p>or explicit:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb57-1" title="1"><span class="fu">boolean:</span><span class="at"> </span><span class="dt">!!bool</span><span class="at"> </span><span class="st">&quot;true&quot;</span></a>
 <a class="sourceLine" id="cb57-2" title="2"><span class="fu">integer:</span><span class="at"> </span><span class="dt">!!int</span><span class="at"> </span><span class="st">&quot;3&quot;</span></a>
 <a class="sourceLine" id="cb57-3" title="3"><span class="fu">float:</span><span class="at"> </span><span class="dt">!!float</span><span class="at"> </span><span class="st">&quot;3.14&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb58-1" title="1">{<span class="st">'boolean'</span>: <span class="va">True</span>, <span class="st">'integer'</span>: <span class="dv">3</span>, <span class="st">'float'</span>: <span class="fl">3.14</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb58-1" title="1">{<span class="st">&#39;boolean&#39;</span>: <span class="va">True</span>, <span class="st">&#39;integer&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;float&#39;</span>: <span class="fl">3.14</span>}</a></code></pre></div>
 <p>Plain scalars without explicitly defined tags are subject to implicit tag resolution. The scalar value is checked against a set of regular expressions and if one of them matches, the corresponding tag is assigned to the scalar. PyYAML allows an application to add custom implicit tag resolvers.</p>
 <h2 id="yaml-tags-and-python-types">YAML tags and Python types</h2>
 <p>The following table describes how nodes with different tags are converted to Python objects.</p>
@@ -999,7 +1000,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb66-2" title="2">compose_all(stream, Loader<span class="op">=</span>Loader)</a>
 <a class="sourceLine" id="cb66-3" title="3"></a>
 <a class="sourceLine" id="cb66-4" title="4">serialize(node, stream<span class="op">=</span><span class="va">None</span>, Dumper<span class="op">=</span>Dumper,</a>
-<a class="sourceLine" id="cb66-5" title="5">    encoding<span class="op">=</span><span class="st">'utf-8'</span>, <span class="co"># encoding=None (Python 3)</span></a>
+<a class="sourceLine" id="cb66-5" title="5">    encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>, <span class="co"># encoding=None (Python 3)</span></a>
 <a class="sourceLine" id="cb66-6" title="6">    explicit_start<span class="op">=</span><span class="va">None</span>,</a>
 <a class="sourceLine" id="cb66-7" title="7">    explicit_end<span class="op">=</span><span class="va">None</span>,</a>
 <a class="sourceLine" id="cb66-8" title="8">    version<span class="op">=</span><span class="va">None</span>,</a>
@@ -1023,7 +1024,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb67-7" title="7">dump(data, stream<span class="op">=</span><span class="va">None</span>, Dumper<span class="op">=</span>Dumper,</a>
 <a class="sourceLine" id="cb67-8" title="8">    default_style<span class="op">=</span><span class="va">None</span>,</a>
 <a class="sourceLine" id="cb67-9" title="9">    default_flow_style<span class="op">=</span><span class="va">None</span>,</a>
-<a class="sourceLine" id="cb67-10" title="10">    encoding<span class="op">=</span><span class="st">'utf-8'</span>, <span class="co"># encoding=None (Python 3)</span></a>
+<a class="sourceLine" id="cb67-10" title="10">    encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>, <span class="co"># encoding=None (Python 3)</span></a>
 <a class="sourceLine" id="cb67-11" title="11">    explicit_start<span class="op">=</span><span class="va">None</span>,</a>
 <a class="sourceLine" id="cb67-12" title="12">    explicit_end<span class="op">=</span><span class="va">None</span>,</a>
 <a class="sourceLine" id="cb67-13" title="13">    version<span class="op">=</span><span class="va">None</span>,</a>
@@ -1081,14 +1082,14 @@ b: {c: 3, d: 4}</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb72-1" title="1">YAMLError()</a></code></pre></div>
 <p>If the YAML parser encounters an error condition, it raises an exception which is an instance of <code>YAMLError</code> or of its subclass. An application may catch this exception and warn a user.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb73-1" title="1"><span class="cf">try</span>:</a>
-<a class="sourceLine" id="cb73-2" title="2">    config <span class="op">=</span> yaml.load(<span class="bu">file</span>(<span class="st">'config.yaml'</span>, <span class="st">'r'</span>))</a>
+<a class="sourceLine" id="cb73-2" title="2">    config <span class="op">=</span> yaml.load(<span class="bu">file</span>(<span class="st">&#39;config.yaml&#39;</span>, <span class="st">&#39;r&#39;</span>))</a>
 <a class="sourceLine" id="cb73-3" title="3"><span class="cf">except</span> yaml.YAMLError, exc:</a>
 <a class="sourceLine" id="cb73-4" title="4">    <span class="bu">print</span> <span class="st">&quot;Error in configuration file:&quot;</span>, exc</a></code></pre></div>
 <p>An exception produced by the YAML processor may point to the problematic position.</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb74-1" title="1"><span class="op">&gt;&gt;&gt;</span> <span class="cf">try</span>:</a>
 <a class="sourceLine" id="cb74-2" title="2">...     yaml.load(<span class="st">&quot;unbalanced blackets: ][&quot;</span>)</a>
 <a class="sourceLine" id="cb74-3" title="3">... <span class="cf">except</span> yaml.YAMLError, exc:</a>
-<a class="sourceLine" id="cb74-4" title="4">...     <span class="cf">if</span> <span class="bu">hasattr</span>(exc, <span class="st">'problem_mark'</span>):</a>
+<a class="sourceLine" id="cb74-4" title="4">...     <span class="cf">if</span> <span class="bu">hasattr</span>(exc, <span class="st">&#39;problem_mark&#39;</span>):</a>
 <a class="sourceLine" id="cb74-5" title="5">...         mark <span class="op">=</span> exc.problem_mark</a>
 <a class="sourceLine" id="cb74-6" title="6">...         <span class="bu">print</span> <span class="st">&quot;Error position: (</span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">)&quot;</span> <span class="op">%</span> (mark.line<span class="op">+</span><span class="dv">1</span>, mark.column<span class="op">+</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb74-7" title="7"></a>
@@ -1099,23 +1100,23 @@ b: {c: 3, d: 4}</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb75-1" title="1">StreamStartToken(encoding, start_mark, end_mark) <span class="co"># Start of the stream.</span></a>
 <a class="sourceLine" id="cb75-2" title="2">StreamEndToken(start_mark, end_mark) <span class="co"># End of the stream.</span></a>
 <a class="sourceLine" id="cb75-3" title="3">DirectiveToken(name, value, start_mark, end_mark) <span class="co"># YAML directive, either %YAML or %TAG.</span></a>
-<a class="sourceLine" id="cb75-4" title="4">DocumentStartToken(start_mark, end_mark) <span class="co"># '---'.</span></a>
-<a class="sourceLine" id="cb75-5" title="5">DocumentEndToken(start_mark, end_mark) <span class="co"># '...'.</span></a>
+<a class="sourceLine" id="cb75-4" title="4">DocumentStartToken(start_mark, end_mark) <span class="co"># &#39;---&#39;.</span></a>
+<a class="sourceLine" id="cb75-5" title="5">DocumentEndToken(start_mark, end_mark) <span class="co"># &#39;...&#39;.</span></a>
 <a class="sourceLine" id="cb75-6" title="6">BlockSequenceStartToken(start_mark, end_mark) <span class="co"># Start of a new block sequence.</span></a>
 <a class="sourceLine" id="cb75-7" title="7">BlockMappingStartToken(start_mark, end_mark) <span class="co"># Start of a new block mapping.</span></a>
 <a class="sourceLine" id="cb75-8" title="8">BlockEndToken(start_mark, end_mark) <span class="co"># End of a block collection.</span></a>
-<a class="sourceLine" id="cb75-9" title="9">FlowSequenceStartToken(start_mark, end_mark) <span class="co"># '['.</span></a>
-<a class="sourceLine" id="cb75-10" title="10">FlowMappingStartToken(start_mark, end_mark) <span class="co"># '{'.</span></a>
-<a class="sourceLine" id="cb75-11" title="11">FlowSequenceEndToken(start_mark, end_mark) <span class="co"># ']'.</span></a>
-<a class="sourceLine" id="cb75-12" title="12">FlowMappingEndToken(start_mark, end_mark) <span class="co"># '}'.</span></a>
-<a class="sourceLine" id="cb75-13" title="13">KeyToken(start_mark, end_mark) <span class="co"># Either '?' or start of a simple key.</span></a>
-<a class="sourceLine" id="cb75-14" title="14">ValueToken(start_mark, end_mark) <span class="co"># ':'.</span></a>
-<a class="sourceLine" id="cb75-15" title="15">BlockEntryToken(start_mark, end_mark) <span class="co"># '-'.</span></a>
-<a class="sourceLine" id="cb75-16" title="16">FlowEntryToken(start_mark, end_mark) <span class="co"># ','.</span></a>
-<a class="sourceLine" id="cb75-17" title="17">AliasToken(value, start_mark, end_mark) <span class="co"># '*value'.</span></a>
-<a class="sourceLine" id="cb75-18" title="18">AnchorToken(value, start_mark, end_mark) <span class="co"># '&amp;value'.</span></a>
-<a class="sourceLine" id="cb75-19" title="19">TagToken(value, start_mark, end_mark) <span class="co"># '!value'.</span></a>
-<a class="sourceLine" id="cb75-20" title="20">ScalarToken(value, plain, style, start_mark, end_mark) <span class="co"># 'value'.</span></a></code></pre></div>
+<a class="sourceLine" id="cb75-9" title="9">FlowSequenceStartToken(start_mark, end_mark) <span class="co"># &#39;[&#39;.</span></a>
+<a class="sourceLine" id="cb75-10" title="10">FlowMappingStartToken(start_mark, end_mark) <span class="co"># &#39;{&#39;.</span></a>
+<a class="sourceLine" id="cb75-11" title="11">FlowSequenceEndToken(start_mark, end_mark) <span class="co"># &#39;]&#39;.</span></a>
+<a class="sourceLine" id="cb75-12" title="12">FlowMappingEndToken(start_mark, end_mark) <span class="co"># &#39;}&#39;.</span></a>
+<a class="sourceLine" id="cb75-13" title="13">KeyToken(start_mark, end_mark) <span class="co"># Either &#39;?&#39; or start of a simple key.</span></a>
+<a class="sourceLine" id="cb75-14" title="14">ValueToken(start_mark, end_mark) <span class="co"># &#39;:&#39;.</span></a>
+<a class="sourceLine" id="cb75-15" title="15">BlockEntryToken(start_mark, end_mark) <span class="co"># &#39;-&#39;.</span></a>
+<a class="sourceLine" id="cb75-16" title="16">FlowEntryToken(start_mark, end_mark) <span class="co"># &#39;,&#39;.</span></a>
+<a class="sourceLine" id="cb75-17" title="17">AliasToken(value, start_mark, end_mark) <span class="co"># &#39;*value&#39;.</span></a>
+<a class="sourceLine" id="cb75-18" title="18">AnchorToken(value, start_mark, end_mark) <span class="co"># &#39;&amp;value&#39;.</span></a>
+<a class="sourceLine" id="cb75-19" title="19">TagToken(value, start_mark, end_mark) <span class="co"># &#39;!value&#39;.</span></a>
+<a class="sourceLine" id="cb75-20" title="20">ScalarToken(value, plain, style, start_mark, end_mark) <span class="co"># &#39;value&#39;.</span></a></code></pre></div>
 <p><code>start_mark</code> and <code>end_mark</code> denote the beginning and the end of a token.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb76-1" title="1"><span class="op">&gt;&gt;&gt;</span> document <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></a>
@@ -1128,7 +1129,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb76-8" title="8"><span class="st">... flow sequence: [FlowEntryToken, FlowEntryToken]</span></a>
 <a class="sourceLine" id="cb76-9" title="9"><span class="st">... flow mapping: {KeyToken: ValueToken}</span></a>
 <a class="sourceLine" id="cb76-10" title="10"><span class="st">... anchors and tags:</span></a>
-<a class="sourceLine" id="cb76-11" title="11"><span class="st">... - &amp;A !!int '5'</span></a>
+<a class="sourceLine" id="cb76-11" title="11"><span class="st">... - &amp;A !!int &#39;5&#39;</span></a>
 <a class="sourceLine" id="cb76-12" title="12"><span class="st">... - *A</span></a>
 <a class="sourceLine" id="cb76-13" title="13"><span class="st">... ...</span></a>
 <a class="sourceLine" id="cb76-14" title="14"><span class="st">... &quot;&quot;&quot;</span></a>
@@ -1136,63 +1137,63 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb76-16" title="16"><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> token <span class="kw">in</span> yaml.scan(document):</a>
 <a class="sourceLine" id="cb76-17" title="17">...     <span class="bu">print</span> token</a>
 <a class="sourceLine" id="cb76-18" title="18"></a>
-<a class="sourceLine" id="cb76-19" title="19">StreamStartToken(encoding<span class="op">=</span><span class="st">'utf-8'</span>)</a>
+<a class="sourceLine" id="cb76-19" title="19">StreamStartToken(encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>)</a>
 <a class="sourceLine" id="cb76-20" title="20"></a>
 <a class="sourceLine" id="cb76-21" title="21">DocumentStartToken()</a>
 <a class="sourceLine" id="cb76-22" title="22"></a>
 <a class="sourceLine" id="cb76-23" title="23">BlockMappingStartToken()</a>
 <a class="sourceLine" id="cb76-24" title="24"></a>
 <a class="sourceLine" id="cb76-25" title="25">KeyToken()</a>
-<a class="sourceLine" id="cb76-26" title="26">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'block sequence'</span>)</a>
+<a class="sourceLine" id="cb76-26" title="26">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;block sequence&#39;</span>)</a>
 <a class="sourceLine" id="cb76-27" title="27"></a>
 <a class="sourceLine" id="cb76-28" title="28">ValueToken()</a>
 <a class="sourceLine" id="cb76-29" title="29">BlockEntryToken()</a>
-<a class="sourceLine" id="cb76-30" title="30">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'BlockEntryToken'</span>)</a>
+<a class="sourceLine" id="cb76-30" title="30">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;BlockEntryToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-31" title="31"></a>
 <a class="sourceLine" id="cb76-32" title="32">KeyToken()</a>
-<a class="sourceLine" id="cb76-33" title="33">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'block mapping'</span>)</a>
+<a class="sourceLine" id="cb76-33" title="33">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;block mapping&#39;</span>)</a>
 <a class="sourceLine" id="cb76-34" title="34"></a>
 <a class="sourceLine" id="cb76-35" title="35">ValueToken()</a>
 <a class="sourceLine" id="cb76-36" title="36">BlockMappingStartToken()</a>
 <a class="sourceLine" id="cb76-37" title="37"></a>
 <a class="sourceLine" id="cb76-38" title="38">KeyToken()</a>
-<a class="sourceLine" id="cb76-39" title="39">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'KeyToken'</span>)</a>
+<a class="sourceLine" id="cb76-39" title="39">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;KeyToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-40" title="40">ValueToken()</a>
-<a class="sourceLine" id="cb76-41" title="41">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'ValueToken'</span>)</a>
+<a class="sourceLine" id="cb76-41" title="41">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;ValueToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-42" title="42">BlockEndToken()</a>
 <a class="sourceLine" id="cb76-43" title="43"></a>
 <a class="sourceLine" id="cb76-44" title="44">KeyToken()</a>
-<a class="sourceLine" id="cb76-45" title="45">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'flow sequence'</span>)</a>
+<a class="sourceLine" id="cb76-45" title="45">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;flow sequence&#39;</span>)</a>
 <a class="sourceLine" id="cb76-46" title="46"></a>
 <a class="sourceLine" id="cb76-47" title="47">ValueToken()</a>
 <a class="sourceLine" id="cb76-48" title="48">FlowSequenceStartToken()</a>
-<a class="sourceLine" id="cb76-49" title="49">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'FlowEntryToken'</span>)</a>
+<a class="sourceLine" id="cb76-49" title="49">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;FlowEntryToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-50" title="50">FlowEntryToken()</a>
-<a class="sourceLine" id="cb76-51" title="51">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'FlowEntryToken'</span>)</a>
+<a class="sourceLine" id="cb76-51" title="51">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;FlowEntryToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-52" title="52">FlowSequenceEndToken()</a>
 <a class="sourceLine" id="cb76-53" title="53"></a>
 <a class="sourceLine" id="cb76-54" title="54">KeyToken()</a>
-<a class="sourceLine" id="cb76-55" title="55">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'flow mapping'</span>)</a>
+<a class="sourceLine" id="cb76-55" title="55">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;flow mapping&#39;</span>)</a>
 <a class="sourceLine" id="cb76-56" title="56"></a>
 <a class="sourceLine" id="cb76-57" title="57">ValueToken()</a>
 <a class="sourceLine" id="cb76-58" title="58">FlowMappingStartToken()</a>
 <a class="sourceLine" id="cb76-59" title="59">KeyToken()</a>
-<a class="sourceLine" id="cb76-60" title="60">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'KeyToken'</span>)</a>
+<a class="sourceLine" id="cb76-60" title="60">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;KeyToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-61" title="61">ValueToken()</a>
-<a class="sourceLine" id="cb76-62" title="62">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'ValueToken'</span>)</a>
+<a class="sourceLine" id="cb76-62" title="62">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;ValueToken&#39;</span>)</a>
 <a class="sourceLine" id="cb76-63" title="63">FlowMappingEndToken()</a>
 <a class="sourceLine" id="cb76-64" title="64"></a>
 <a class="sourceLine" id="cb76-65" title="65">KeyToken()</a>
-<a class="sourceLine" id="cb76-66" title="66">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u'anchors and tags'</span>)</a>
+<a class="sourceLine" id="cb76-66" title="66">ScalarToken(plain<span class="op">=</span><span class="va">True</span>, style<span class="op">=</span><span class="va">None</span>, value<span class="op">=</span><span class="st">u&#39;anchors and tags&#39;</span>)</a>
 <a class="sourceLine" id="cb76-67" title="67"></a>
 <a class="sourceLine" id="cb76-68" title="68">ValueToken()</a>
 <a class="sourceLine" id="cb76-69" title="69">BlockEntryToken()</a>
-<a class="sourceLine" id="cb76-70" title="70">AnchorToken(value<span class="op">=</span><span class="st">u'A'</span>)</a>
-<a class="sourceLine" id="cb76-71" title="71">TagToken(value<span class="op">=</span>(<span class="st">u'!!'</span>, <span class="st">u'int'</span>))</a>
-<a class="sourceLine" id="cb76-72" title="72">ScalarToken(plain<span class="op">=</span><span class="va">False</span>, style<span class="op">=</span><span class="st">&quot;'&quot;</span>, value<span class="op">=</span><span class="st">u'5'</span>)</a>
+<a class="sourceLine" id="cb76-70" title="70">AnchorToken(value<span class="op">=</span><span class="st">u&#39;A&#39;</span>)</a>
+<a class="sourceLine" id="cb76-71" title="71">TagToken(value<span class="op">=</span>(<span class="st">u&#39;!!&#39;</span>, <span class="st">u&#39;int&#39;</span>))</a>
+<a class="sourceLine" id="cb76-72" title="72">ScalarToken(plain<span class="op">=</span><span class="va">False</span>, style<span class="op">=</span><span class="st">&quot;&#39;&quot;</span>, value<span class="op">=</span><span class="st">u&#39;5&#39;</span>)</a>
 <a class="sourceLine" id="cb76-73" title="73"></a>
 <a class="sourceLine" id="cb76-74" title="74">BlockEntryToken()</a>
-<a class="sourceLine" id="cb76-75" title="75">AliasToken(value<span class="op">=</span><span class="st">u'A'</span>)</a>
+<a class="sourceLine" id="cb76-75" title="75">AliasToken(value<span class="op">=</span><span class="st">u&#39;A&#39;</span>)</a>
 <a class="sourceLine" id="cb76-76" title="76"></a>
 <a class="sourceLine" id="cb76-77" title="77">BlockEndToken()</a>
 <a class="sourceLine" id="cb76-78" title="78"></a>
@@ -1212,10 +1213,10 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb77-8" title="8">MappingEndEvent(start_mark, end_mark)</a>
 <a class="sourceLine" id="cb77-9" title="9">AliasEvent(anchor, start_mark, end_mark)</a>
 <a class="sourceLine" id="cb77-10" title="10">ScalarEvent(anchor, tag, implicit, value, style, start_mark, end_mark)</a></code></pre></div>
-<p>The <code>flow_style</code> flag indicates if a collection is block or flow. The possible values are <code>None</code>, <code>True</code>, <code>False</code>. The <code>style</code> flag of a scalar event indicates the style of the scalar. Possible values are <code>None</code>, <code>_</code>, <code>'\_</code>, <code>'&quot;'</code>, <code>'|'</code>, <code>'&gt;'</code>. The <code>implicit</code> flag of a collection start event indicates if the tag may be omitted when the collection is emitted. The <code>implicit</code> flag of a scalar event is a pair of boolean values that indicate if the tag may be omitted when the scalar is emitted in a plain and non-plain style correspondingly.</p>
+<p>The <code>flow_style</code> flag indicates if a collection is block or flow. The possible values are <code>None</code>, <code>True</code>, <code>False</code>. The <code>style</code> flag of a scalar event indicates the style of the scalar. Possible values are <code>None</code>, <code>_</code>, <code>&#39;\_</code>, <code>&#39;&quot;&#39;</code>, <code>&#39;|&#39;</code>, <code>&#39;&gt;&#39;</code>. The <code>implicit</code> flag of a collection start event indicates if the tag may be omitted when the collection is emitted. The <code>implicit</code> flag of a scalar event is a pair of boolean values that indicate if the tag may be omitted when the scalar is emitted in a plain and non-plain style correspondingly.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb78-1" title="1"><span class="op">&gt;&gt;&gt;</span> document <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></a>
-<a class="sourceLine" id="cb78-2" title="2"><span class="st">... scalar: &amp;A !!int '5'</span></a>
+<a class="sourceLine" id="cb78-2" title="2"><span class="st">... scalar: &amp;A !!int &#39;5&#39;</span></a>
 <a class="sourceLine" id="cb78-3" title="3"><span class="st">... alias: *A</span></a>
 <a class="sourceLine" id="cb78-4" title="4"><span class="st">... sequence: [1, 2, 3]</span></a>
 <a class="sourceLine" id="cb78-5" title="5"><span class="st">... mapping: [1: one, 2: two, 3: three]</span></a>
@@ -1230,27 +1231,27 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb78-14" title="14"></a>
 <a class="sourceLine" id="cb78-15" title="15">MappingStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span><span class="va">True</span>)</a>
 <a class="sourceLine" id="cb78-16" title="16"></a>
-<a class="sourceLine" id="cb78-17" title="17">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'scalar'</span>)</a>
-<a class="sourceLine" id="cb78-18" title="18">ScalarEvent(anchor<span class="op">=</span><span class="st">u'A'</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:int'</span>, implicit<span class="op">=</span>(<span class="va">False</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'5'</span>)</a>
+<a class="sourceLine" id="cb78-17" title="17">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;scalar&#39;</span>)</a>
+<a class="sourceLine" id="cb78-18" title="18">ScalarEvent(anchor<span class="op">=</span><span class="st">u&#39;A&#39;</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:int&#39;</span>, implicit<span class="op">=</span>(<span class="va">False</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;5&#39;</span>)</a>
 <a class="sourceLine" id="cb78-19" title="19"></a>
-<a class="sourceLine" id="cb78-20" title="20">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'alias'</span>)</a>
-<a class="sourceLine" id="cb78-21" title="21">AliasEvent(anchor<span class="op">=</span><span class="st">u'A'</span>)</a>
+<a class="sourceLine" id="cb78-20" title="20">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;alias&#39;</span>)</a>
+<a class="sourceLine" id="cb78-21" title="21">AliasEvent(anchor<span class="op">=</span><span class="st">u&#39;A&#39;</span>)</a>
 <a class="sourceLine" id="cb78-22" title="22"></a>
-<a class="sourceLine" id="cb78-23" title="23">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'sequence'</span>)</a>
+<a class="sourceLine" id="cb78-23" title="23">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;sequence&#39;</span>)</a>
 <a class="sourceLine" id="cb78-24" title="24">SequenceStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb78-25" title="25">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'1'</span>)</a>
-<a class="sourceLine" id="cb78-26" title="26">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'2'</span>)</a>
-<a class="sourceLine" id="cb78-27" title="27">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'3'</span>)</a>
+<a class="sourceLine" id="cb78-25" title="25">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;1&#39;</span>)</a>
+<a class="sourceLine" id="cb78-26" title="26">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;2&#39;</span>)</a>
+<a class="sourceLine" id="cb78-27" title="27">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;3&#39;</span>)</a>
 <a class="sourceLine" id="cb78-28" title="28">SequenceEndEvent()</a>
 <a class="sourceLine" id="cb78-29" title="29"></a>
-<a class="sourceLine" id="cb78-30" title="30">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'mapping'</span>)</a>
+<a class="sourceLine" id="cb78-30" title="30">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;mapping&#39;</span>)</a>
 <a class="sourceLine" id="cb78-31" title="31">MappingStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb78-32" title="32">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'1'</span>)</a>
-<a class="sourceLine" id="cb78-33" title="33">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'one'</span>)</a>
-<a class="sourceLine" id="cb78-34" title="34">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'2'</span>)</a>
-<a class="sourceLine" id="cb78-35" title="35">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'two'</span>)</a>
-<a class="sourceLine" id="cb78-36" title="36">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'3'</span>)</a>
-<a class="sourceLine" id="cb78-37" title="37">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u'three'</span>)</a>
+<a class="sourceLine" id="cb78-32" title="32">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;1&#39;</span>)</a>
+<a class="sourceLine" id="cb78-33" title="33">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;one&#39;</span>)</a>
+<a class="sourceLine" id="cb78-34" title="34">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;2&#39;</span>)</a>
+<a class="sourceLine" id="cb78-35" title="35">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;two&#39;</span>)</a>
+<a class="sourceLine" id="cb78-36" title="36">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;3&#39;</span>)</a>
+<a class="sourceLine" id="cb78-37" title="37">ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="va">None</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">False</span>), value<span class="op">=</span><span class="st">u&#39;three&#39;</span>)</a>
 <a class="sourceLine" id="cb78-38" title="38">MappingEndEvent()</a>
 <a class="sourceLine" id="cb78-39" title="39"></a>
 <a class="sourceLine" id="cb78-40" title="40">MappingEndEvent()</a>
@@ -1260,14 +1261,14 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb78-44" title="44">StreamEndEvent()</a>
 <a class="sourceLine" id="cb78-45" title="45"></a>
 <a class="sourceLine" id="cb78-46" title="46"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.emit([</a>
-<a class="sourceLine" id="cb78-47" title="47">...     yaml.StreamStartEvent(encoding<span class="op">=</span><span class="st">'utf-8'</span>),</a>
+<a class="sourceLine" id="cb78-47" title="47">...     yaml.StreamStartEvent(encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>),</a>
 <a class="sourceLine" id="cb78-48" title="48">...     yaml.DocumentStartEvent(explicit<span class="op">=</span><span class="va">True</span>),</a>
-<a class="sourceLine" id="cb78-49" title="49">...     yaml.MappingStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:map'</span>, implicit<span class="op">=</span><span class="va">True</span>, flow_style<span class="op">=</span><span class="va">False</span>),</a>
-<a class="sourceLine" id="cb78-50" title="50">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u'agile languages'</span>),</a>
-<a class="sourceLine" id="cb78-51" title="51">...     yaml.SequenceStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:seq'</span>, implicit<span class="op">=</span><span class="va">True</span>, flow_style<span class="op">=</span><span class="va">True</span>),</a>
-<a class="sourceLine" id="cb78-52" title="52">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u'Python'</span>),</a>
-<a class="sourceLine" id="cb78-53" title="53">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u'Perl'</span>),</a>
-<a class="sourceLine" id="cb78-54" title="54">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u'Ruby'</span>),</a>
+<a class="sourceLine" id="cb78-49" title="49">...     yaml.MappingStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:map&#39;</span>, implicit<span class="op">=</span><span class="va">True</span>, flow_style<span class="op">=</span><span class="va">False</span>),</a>
+<a class="sourceLine" id="cb78-50" title="50">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u&#39;agile languages&#39;</span>),</a>
+<a class="sourceLine" id="cb78-51" title="51">...     yaml.SequenceStartEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:seq&#39;</span>, implicit<span class="op">=</span><span class="va">True</span>, flow_style<span class="op">=</span><span class="va">True</span>),</a>
+<a class="sourceLine" id="cb78-52" title="52">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u&#39;Python&#39;</span>),</a>
+<a class="sourceLine" id="cb78-53" title="53">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u&#39;Perl&#39;</span>),</a>
+<a class="sourceLine" id="cb78-54" title="54">...     yaml.ScalarEvent(anchor<span class="op">=</span><span class="va">None</span>, tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, implicit<span class="op">=</span>(<span class="va">True</span>, <span class="va">True</span>), value<span class="op">=</span><span class="st">u&#39;Ruby&#39;</span>),</a>
 <a class="sourceLine" id="cb78-55" title="55">...     yaml.SequenceEndEvent(),</a>
 <a class="sourceLine" id="cb78-56" title="56">...     yaml.MappingEndEvent(),</a>
 <a class="sourceLine" id="cb78-57" title="57">...     yaml.DocumentEndEvent(explicit<span class="op">=</span><span class="va">True</span>),</a>
@@ -1291,16 +1292,16 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb80-5" title="5"><span class="st">... - mapping</span></a>
 <a class="sourceLine" id="cb80-6" title="6"><span class="st">... &quot;&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb80-7" title="7"></a>
-<a class="sourceLine" id="cb80-8" title="8">MappingNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:map'</span>, value<span class="op">=</span>[</a>
-<a class="sourceLine" id="cb80-9" title="9">    (ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'kinds'</span>), SequenceNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:seq'</span>, value<span class="op">=</span>[</a>
-<a class="sourceLine" id="cb80-10" title="10">        ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'scalar'</span>),</a>
-<a class="sourceLine" id="cb80-11" title="11">        ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'sequence'</span>),</a>
-<a class="sourceLine" id="cb80-12" title="12">        ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'mapping'</span>)]))])</a>
+<a class="sourceLine" id="cb80-8" title="8">MappingNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:map&#39;</span>, value<span class="op">=</span>[</a>
+<a class="sourceLine" id="cb80-9" title="9">    (ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;kinds&#39;</span>), SequenceNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:seq&#39;</span>, value<span class="op">=</span>[</a>
+<a class="sourceLine" id="cb80-10" title="10">        ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;scalar&#39;</span>),</a>
+<a class="sourceLine" id="cb80-11" title="11">        ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;sequence&#39;</span>),</a>
+<a class="sourceLine" id="cb80-12" title="12">        ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;mapping&#39;</span>)]))])</a>
 <a class="sourceLine" id="cb80-13" title="13"></a>
-<a class="sourceLine" id="cb80-14" title="14"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.serialize(yaml.SequenceNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:seq'</span>, value<span class="op">=</span>[</a>
-<a class="sourceLine" id="cb80-15" title="15">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'scalar'</span>),</a>
-<a class="sourceLine" id="cb80-16" title="16">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'sequence'</span>),</a>
-<a class="sourceLine" id="cb80-17" title="17">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u'tag:yaml.org,2002:str'</span>, value<span class="op">=</span><span class="st">u'mapping'</span>)]))</a>
+<a class="sourceLine" id="cb80-14" title="14"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span> yaml.serialize(yaml.SequenceNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:seq&#39;</span>, value<span class="op">=</span>[</a>
+<a class="sourceLine" id="cb80-15" title="15">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;scalar&#39;</span>),</a>
+<a class="sourceLine" id="cb80-16" title="16">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;sequence&#39;</span>),</a>
+<a class="sourceLine" id="cb80-17" title="17">...     yaml.ScalarNode(tag<span class="op">=</span><span class="st">u&#39;tag:yaml.org,2002:str&#39;</span>, value<span class="op">=</span><span class="st">u&#39;mapping&#39;</span>)]))</a>
 <a class="sourceLine" id="cb80-18" title="18"></a>
 <a class="sourceLine" id="cb80-19" title="19"><span class="op">-</span> scalar</a>
 <a class="sourceLine" id="cb80-20" title="20"><span class="op">-</span> sequence</a>
@@ -1318,7 +1319,7 @@ b: {c: 3, d: 4}</code></pre>
 <p><code>Loader</code> supports all predefined tags and may construct an arbitrary Python object. Therefore it is not safe to use <code>Loader</code> to load a document received from an untrusted source. By default, the functions <code>scan</code>, <code>parse</code>, <code>compose</code>, <code>construct</code>, and others use <code>Loader</code>.</p>
 <p><code>SafeLoader(stream)</code> supports only standard YAML tags and thus it does not construct class instances and probably safe to use with documents received from an untrusted source. The functions <code>safe_load</code> and <code>safe_load_all</code> use <code>SafeLoader</code> to parse a stream.</p>
 <p><code>BaseLoader(stream)</code> does not resolve or support any tags and construct only basic Python objects: lists, dictionaries and Unicode strings.</p>
-<p><code>CLoader</code>, <code>CSafeLoader</code>, <code>CBaseLoader</code> are versions of the above classes written in C using the <a href="LibYAML" class="uri">LibYAML</a> library.</p>
+<p><code>CLoader</code>, <code>CSafeLoader</code>, <code>CBaseLoader</code> are versions of the above classes written in C using the <a href="LibYAML">LibYAML</a> library.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb82-1" title="1">Loader.check_token(<span class="op">*</span>TokenClasses)</a>
 <a class="sourceLine" id="cb82-2" title="2">Loader.peek_token()</a>
 <a class="sourceLine" id="cb82-3" title="3">Loader.get_token()</a></code></pre></div>
@@ -1380,7 +1381,7 @@ b: {c: 3, d: 4}</code></pre>
 <p><code>Dumper</code> supports all predefined tags and may represent an arbitrary Python object. Therefore it may produce a document that cannot be loaded by other YAML processors. By default, the functions <code>emit</code>, <code>serialize</code>, <code>dump</code>, and others use <code>Dumper</code>.</p>
 <p><code>SafeDumper(stream)</code> produces only standard YAML tags and thus cannot represent class instances and probably more compatible with other YAML processors. The functions <code>safe_dump</code> and <code>safe_dump_all</code> use <code>SafeDumper</code> to produce a YAML document.</p>
 <p><code>BaseDumper(stream)</code> does not support any tags and is useful only for subclassing.</p>
-<p><code>CDumper</code>, <code>CSafeDumper</code>, <code>CBaseDumper</code> are versions of the above classes written in C using the <a href="LibYAML" class="uri">LibYAML</a> library.</p>
+<p><code>CDumper</code>, <code>CSafeDumper</code>, <code>CBaseDumper</code> are versions of the above classes written in C using the <a href="LibYAML">LibYAML</a> library.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb88-1" title="1">Dumper.emit(event)</a></code></pre></div>
 <p><code>Dumper.emit(event)</code> serializes the given <code>event</code> and writes it to the output stream.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb89-1" title="1">Dumper.<span class="bu">open</span>()</a>
@@ -1412,7 +1413,7 @@ b: {c: 3, d: 4}</code></pre>
 <a class="sourceLine" id="cb92-2" title="2">    yaml_loader <span class="op">=</span> Loader</a>
 <a class="sourceLine" id="cb92-3" title="3">    yaml_dumper <span class="op">=</span> Dumper</a>
 <a class="sourceLine" id="cb92-4" title="4"></a>
-<a class="sourceLine" id="cb92-5" title="5">    yaml_tag <span class="op">=</span> <span class="st">u'...'</span></a>
+<a class="sourceLine" id="cb92-5" title="5">    yaml_tag <span class="op">=</span> <span class="st">u&#39;...&#39;</span></a>
 <a class="sourceLine" id="cb92-6" title="6">    yaml_flow_style <span class="op">=</span> ...</a>
 <a class="sourceLine" id="cb92-7" title="7"></a>
 <a class="sourceLine" id="cb92-8" title="8">    <span class="at">@classmethod</span></a>
