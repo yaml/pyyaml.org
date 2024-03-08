@@ -65,12 +65,14 @@ _(see #18, #24)?_
 
 It's a correct output despite the fact that the style of the nested mapping is different.
 
-By default, PyYAML chooses the style of a collection depending on whether it has nested
-collections. If a collection has nested collections, it will be assigned the block style.
-Otherwise it will have the flow style.
+Prior to version 5.1, PyYAML would by default choose the style of a collection
+depending on whether it had nested collections. If a collection had nested
+collections, it would be assigned the block style. Otherwise it would have the
+flow style.
 
-If you want collections to be always serialized in the block style, set the parameter
-`default_flow_style` of `dump()` to `False`. For instance,
+If you are using a PyYAML release older than 5.1, and you want collections to
+be always serialized in the block style, set the parameter `default_flow_style`
+of `dump()` to `False`. For instance,
 
 ``` {.python}
 >>> print yaml.dump(yaml.load(document), default_flow_style=False)
@@ -79,6 +81,8 @@ b:
   c: 3
   d: 4
 ```
+
+In PyYAML 5.1 and later, `default_flow_style` is `False` by default.
 
 ## Python 3 support
 
@@ -769,7 +773,7 @@ right hand: *A
 
 expresses the idea of a hero holding a heavy sword in both hands.
 
-PyYAML now fully supports recursive objects. For instance, the document 
+PyYAML now fully supports recursive objects. For instance, the document
 ``` {.yaml}
 &A [ *A ]
 ```
